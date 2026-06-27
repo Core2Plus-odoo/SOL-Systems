@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOL Systems — Financial Dashboard</title>
+<script src="vendor/chart.umd.js"></script>
+<script src="vendor/chartjs-adapter-date-fns.bundle.min.js"></script>
+<style>
+  :root{
+    --bg:#0b1020; --panel:#11182e; --panel2:#0e1426; --border:#1f2a45;
+    --txt:#e7ecf7; --muted:#8a93ab; --accent:#5b8cff; --accent2:#22d3ee;
+    --green:#34d399; --red:#fb7185; --amber:#fbbf24;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,sans-serif;
+    background:radial-gradient(1200px 600px at 10% -10%, #15224a 0%, var(--bg) 55%) fixed;
+    color:var(--txt); min-height:100vh;
+  }
+  .wrap{max-width:1400px;margin:0 auto;padding:28px 28px 60px;}
+  header{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px; margin-bottom:28px;}
+  .brand{display:flex; align-items:center; gap:14px;}
+  .logo{
+    width:46px;height:46px;border-radius:12px;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:#06122b;
+    box-shadow:0 8px 24px rgba(91,140,255,.35);
+  }
+  h1{font-size:22px;margin:0;font-weight:700;letter-spacing:.2px;}
+  .sub{color:var(--muted);font-size:13px;margin-top:2px;}
+  .period-badge{
+    background:var(--panel); border:1px solid var(--border); border-radius:999px;
+    padding:8px 16px; font-size:12.5px; color:var(--muted); display:flex; gap:8px; align-items:center;
+  }
+  .period-badge b{color:var(--txt); font-weight:600;}
+  .dot{width:7px;height:7px;border-radius:50%; background:var(--green); box-shadow:0 0 8px var(--green);}
+
+  .kpis{display:grid; grid-template-columns:repeat(5,1fr); gap:16px; margin-bottom:24px;}
+  .kpi{
+    background:linear-gradient(180deg,var(--panel),var(--panel2));
+    border:1px solid var(--border); border-radius:var(--radius); padding:18px 20px;
+    position:relative; overflow:hidden;
+  }
+  .kpi::before{
+    content:''; position:absolute; inset:0; opacity:.06; background:radial-gradient(circle at 90% 0%, var(--accent), transparent 60%);
+  }
+  .kpi .label{font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.6px; font-weight:600;}
+  .kpi .value{font-size:26px; font-weight:800; margin-top:8px; letter-spacing:-.3px;}
+  .kpi .delta{font-size:12.5px; margin-top:6px; font-weight:600;}
+  .delta.up{color:var(--green);} .delta.down{color:var(--red);} .delta.flat{color:var(--muted);}
+
+  .grid{display:grid; grid-template-columns:1.4fr 1fr; gap:18px; margin-bottom:18px;}
+  .grid3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px; margin-bottom:18px;}
+  .card{
+    background:linear-gradient(180deg,var(--panel),var(--panel2));
+    border:1px solid var(--border); border-radius:var(--radius); padding:20px;
+  }
+  .card h3{margin:0 0 4px; font-size:14.5px; font-weight:700;}
+  .card .hint{color:var(--muted); font-size:11.5px; margin-bottom:14px;}
+  .card-head{display:flex; justify-content:space-between; align-items:baseline;}
+  .pill{font-size:11px; padding:3px 9px; border-radius:999px; font-weight:700;}
+  .pill.green{background:rgba(52,211,153,.15); color:var(--green);}
+  .pill.amber{background:rgba(251,191,36,.15); color:var(--amber);}
+  .pill.red{background:rgba(251,113,133,.15); color:var(--red);}
+  canvas{max-height:280px;}
+
+  table{width:100%; border-collapse:collapse; font-size:13px;}
+  th{text-align:left; color:var(--muted); font-weight:600; font-size:11.5px; text-transform:uppercase; letter-spacing:.4px; padding:8px 6px; border-bottom:1px solid var(--border);}
+  td{padding:9px 6px; border-bottom:1px solid rgba(255,255,255,.03);}
+  tr:hover td{background:rgba(255,255,255,.02);}
+  .num{text-align:right; font-variant-numeric:tabular-nums; font-weight:600;}
+  .neg{color:var(--red);} .pos{color:var(--green);}
+  .tag{font-size:10.5px; padding:2px 7px; border-radius:6px; background:rgba(91,140,255,.15); color:var(--accent2); font-weight:700;}
+
+  .bank-row{display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid rgba(255,255,255,.04);}
+  .bank-row:last-child{border-bottom:none;}
+  .bank-name{font-weight:700; font-size:14px;}
+  .bank-acct{color:var(--muted); font-size:11px; margin-top:2px;}
+  .bank-bal{font-size:20px; font-weight:800; text-align:right;}
+  .bank-bal .small{display:block; font-size:11px; color:var(--muted); font-weight:500; margin-top:2px;}
+
+  .flag-item{display:flex; gap:12px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,.04); align-items:flex-start;}
+  .flag-item:last-child{border-bottom:none;}
+  .flag-dot{width:8px;height:8px;border-radius:50%;background:var(--amber); margin-top:6px; flex-shrink:0; box-shadow:0 0 6px var(--amber);}
+  .flag-doc{font-weight:700; font-size:13px;}
+  .flag-meta{font-size:11.5px; color:var(--muted); margin-top:1px;}
+  .flag-note{font-size:12px; color:#cdd6ec; margin-top:3px;}
+
+  footer{margin-top:30px; text-align:center; color:var(--muted); font-size:11.5px;}
+  @media (max-width:1100px){ .kpis{grid-template-columns:repeat(2,1fr);} .grid,.grid3{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">
+      <div class="logo">SOL</div>
+      <div>
+        <h1>SOL Systems Limited — Financial Dashboard</h1>
+        <div class="sub">VAT 312776217500003 &nbsp;·&nbsp; IFRS / ZATCA Phase 2 / KSA l10n_sa</div>
+      </div>
+    </div>
+    <div class="period-badge"><span class="dot"></span> Period <b>Aug 2025 – May 2026</b></div>
+  </header>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <h3>Revenue vs. Expenses</h3>
+          <div class="hint">Monthly, excl. VAT (SAR) — invoiced revenue vs. vendor bills + payroll</div>
+        </div>
+      </div>
+      <canvas id="revExpChart"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <h3>Expense Breakdown</h3>
+          <div class="hint">By GL classification (SAR, excl. VAT)</div>
+        </div>
+      </div>
+      <canvas id="expPie"></canvas>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <h3>Bank Balance Trend</h3>
+          <div class="hint">Running balance — SNB &amp; Riyadh Bank (SAR)</div>
+        </div>
+      </div>
+      <canvas id="bankChart"></canvas>
+    </div>
+    <div class="card">
+      <h3>Account Balances</h3>
+      <div class="hint">Closing balance, end of period</div>
+      <div id="bankBoxes"></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <h3>Top Vendors by Spend</h3>
+          <div class="hint">Cumulative excl. VAT, Aug 2025 – May 2026</div>
+        </div>
+      </div>
+      <table id="vendorTable"></table>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <h3>Data Quality Flags</h3>
+          <div class="hint">Items requiring review before posting</div>
+        </div>
+        <span class="pill amber" id="flagCount"></span>
+      </div>
+      <div id="flagList"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <h3>Customer Invoices &amp; Credit Notes</h3>
+        <div class="hint">All AR documents issued in the period</div>
+      </div>
+    </div>
+    <table id="invoiceTable"></table>
+  </div>
+
+  <footer>Generated from internal Odoo import package · master_data + odoo_imports · Core2Plus</footer>
+</div>
+
+<script>
+const FMT = n => n.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+const SAR = n => 'SAR ' + FMT(n);
+
+fetch('data.json').then(r => r.json()).then(D => {
+
+  // ---------- KPI cards ----------
+  const grossProfit = D.total_revenue_excl - D.total_expense_excl;
+  const margin = (grossProfit / D.total_revenue_excl * 100);
+  const totalCash = D.snb.net + D.riyadh.net;
+
+  const kpis = [
+    {label:'Total Revenue (excl. VAT)', value: SAR(D.total_revenue_excl), delta:`${D.invoices_count} documents`, cls:'flat'},
+    {label:'Total Expenses (excl. VAT)', value: SAR(D.total_expense_excl), delta:`${D.bills_count} bills`, cls:'flat'},
+    {label:'Net Result', value: SAR(grossProfit), delta: (grossProfit>=0?'▲ ':'▼ ') + margin.toFixed(1)+'% margin', cls: grossProfit>=0?'up':'down'},
+    {label:'Total Cash on Hand', value: SAR(totalCash), delta:'SNB + Riyadh Bank', cls:'up'},
+    {label:'Open Data Flags', value: D.flags.length, delta:'Review before posting', cls:'down'},
+  ];
+  document.getElementById('kpis').innerHTML = kpis.map(k => `
+    <div class="kpi">
+      <div class="label">${k.label}</div>
+      <div class="value">${k.value}</div>
+      <div class="delta ${k.cls}">${k.delta}</div>
+    </div>`).join('');
+
+  // ---------- Chart defaults ----------
+  Chart.defaults.color = '#8a93ab';
+  Chart.defaults.font.family = "'Segoe UI', sans-serif";
+  Chart.defaults.borderColor = 'rgba(255,255,255,.06)';
+
+  // ---------- Revenue vs Expense ----------
+  const months = Array.from(new Set([...Object.keys(D.revenue_by_month), ...Object.keys(D.expense_by_month), ...Object.keys(D.payroll_by_month)])).sort();
+  const revData = months.map(m => D.revenue_by_month[m] || 0);
+  const expData = months.map(m => (D.expense_by_month[m]||0) + (D.payroll_by_month[m]||0));
+
+  new Chart(document.getElementById('revExpChart'), {
+    type:'bar',
+    data:{
+      labels: months,
+      datasets:[
+        {label:'Revenue', data:revData, backgroundColor:'#5b8cff', borderRadius:6, maxBarThickness:34},
+        {label:'Expenses', data:expData, backgroundColor:'#fb7185', borderRadius:6, maxBarThickness:34},
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:true,
+      plugins:{legend:{position:'top', labels:{boxWidth:10, usePointStyle:true, pointStyle:'circle'}}},
+      scales:{
+        y:{grid:{color:'rgba(255,255,255,.05)'}, ticks:{callback:v=>'SAR '+(v/1000)+'k'}},
+        x:{grid:{display:false}}
+      }
+    }
+  });
+
+  // ---------- Expense pie ----------
+  const accLabels = Object.keys(D.expense_by_account);
+  const accVals = Object.values(D.expense_by_account);
+  const palette = ['#5b8cff','#22d3ee','#34d399','#fbbf24','#fb7185','#a78bfa','#f472b6','#60a5fa','#4ade80','#facc15','#fb923c','#38bdf8','#c084fc','#f87171'];
+  new Chart(document.getElementById('expPie'), {
+    type:'doughnut',
+    data:{labels:accLabels, datasets:[{data:accVals, backgroundColor:palette, borderWidth:0}]},
+    options:{
+      responsive:true,
+      plugins:{legend:{position:'right', labels:{boxWidth:10, font:{size:10.5}, usePointStyle:true, pointStyle:'circle'}}},
+      cutout:'62%'
+    }
+  });
+
+  // ---------- Bank balance trend ----------
+  const snbPts = D.snb.timeline.map(t => ({x:t.date, y:t.balance}));
+  const riyPts = D.riyadh.timeline.map(t => ({x:t.date, y:t.balance}));
+  new Chart(document.getElementById('bankChart'), {
+    type:'line',
+    data:{datasets:[
+      {label:'SNB', data:snbPts, borderColor:'#5b8cff', backgroundColor:'rgba(91,140,255,.12)', fill:true, tension:.25, pointRadius:0, borderWidth:2.5},
+      {label:'Riyadh Bank', data:riyPts, borderColor:'#22d3ee', backgroundColor:'rgba(34,211,238,.10)', fill:true, tension:.25, pointRadius:0, borderWidth:2.5},
+    ]},
+    options:{
+      responsive:true,
+      plugins:{legend:{position:'top', labels:{boxWidth:10, usePointStyle:true, pointStyle:'circle'}}},
+      scales:{
+        x:{type:'time', time:{unit:'month'}, grid:{display:false}},
+        y:{grid:{color:'rgba(255,255,255,.05)'}, ticks:{callback:v=>'SAR '+(v/1000)+'k'}}
+      }
+    }
+  });
+
+  // ---------- Bank boxes ----------
+  document.getElementById('bankBoxes').innerHTML = `
+    <div class="bank-row">
+      <div><div class="bank-name">Saudi National Bank (SNB)</div><div class="bank-acct">53600004031503 · ${D.snb.txn_count} txns</div></div>
+      <div class="bank-bal">${SAR(D.snb.net)}<span class="small">In ${SAR(D.snb.in_total)} · Out ${SAR(D.snb.out_total)}</span></div>
+    </div>
+    <div class="bank-row">
+      <div><div class="bank-name">Riyadh Bank</div><div class="bank-acct">2453880849940 · ${D.riyadh.txn_count} txns</div></div>
+      <div class="bank-bal">${SAR(D.riyadh.net)}<span class="small">In ${SAR(D.riyadh.in_total)} · Out ${SAR(D.riyadh.out_total)}</span></div>
+    </div>
+    <div class="bank-row" style="border-top:1px solid var(--border); margin-top:6px; padding-top:14px;">
+      <div><div class="bank-name" style="color:var(--accent2)">Combined Cash Position</div></div>
+      <div class="bank-bal" style="color:var(--accent2)">${SAR(D.snb.net + D.riyadh.net)}</div>
+    </div>
+  `;
+
+  // ---------- Vendor table ----------
+  document.getElementById('vendorTable').innerHTML = `
+    <thead><tr><th>Vendor</th><th class="num">Spend (excl. VAT)</th><th class="num">% of Total</th></tr></thead>
+    <tbody>
+      ${D.vendor_spend.map(v => `
+        <tr>
+          <td>${v.name}</td>
+          <td class="num">${SAR(v.amount)}</td>
+          <td class="num">${(v.amount / D.vendor_spend.reduce((s,x)=>s+x.amount,0) * 100).toFixed(1)}%</td>
+        </tr>`).join('')}
+    </tbody>`;
+
+  // ---------- Flags ----------
+  document.getElementById('flagCount').textContent = D.flags.length + ' open';
+  document.getElementById('flagList').innerHTML = D.flags.map(f => `
+    <div class="flag-item">
+      <div class="flag-dot"></div>
+      <div>
+        <div class="flag-doc">${f.doc} <span class="tag">${f.partner}</span></div>
+        <div class="flag-meta">${f.date}</div>
+        <div class="flag-note">${f.note}</div>
+      </div>
+    </div>`).join('');
+
+  // ---------- Invoice table ----------
+  document.getElementById('invoiceTable').innerHTML = `
+    <thead><tr><th>Document</th><th>Date</th><th>Customer</th><th>Type</th><th class="num">Amount (excl. VAT)</th></tr></thead>
+    <tbody>
+      ${D.invoices.map(i => `
+        <tr>
+          <td><b>${i.name}</b></td>
+          <td>${i.date}</td>
+          <td>${i.partner}</td>
+          <td><span class="tag" style="background:${i.type==='out_refund'?'rgba(251,113,133,.15)':'rgba(52,211,153,.15)'}; color:${i.type==='out_refund'?'#fb7185':'#34d399'}">${i.type === 'out_refund' ? 'Credit Note' : 'Invoice'}</span></td>
+          <td class="num ${i.total<0?'neg':'pos'}">${i.total<0?'-':''}${SAR(Math.abs(i.total))}</td>
+        </tr>`).join('')}
+    </tbody>`;
+
+});
+</script>
+</body>
+</html>
