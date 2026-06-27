@@ -9,12 +9,12 @@
     <menuitem id="menu_sol_financial_dashboard_root"
               name="SOL Dashboard"
               sequence="6"
-              groups="account.group_account_invoice"/>
+              groups="base.group_user"/>
 
     <menuitem id="menu_sol_financial_dashboard"
               name="Financial Dashboard"
               parent="menu_sol_financial_dashboard_root"
               action="action_sol_financial_dashboard"
               sequence="1"
-              groups="account.group_account_invoice"/>
+              groups="base.group_user"/>
 </odoo>
