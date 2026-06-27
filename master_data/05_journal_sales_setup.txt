@@ -1,0 +1,67 @@
+ZATCA Phase 2 & Sales Journal Onboarding – Manual Steps
+=========================================================
+
+A. SALES JOURNAL SETUP
+───────────────────────
+1. Go to: Accounting → Configuration → Journals
+2. Open "Customer Invoices" (type = Sales)
+3. Click Edit
+4. Set fields:
+   - Short Code / Prefix    : INV
+   - Dedicated Sequence     : ✓ (tick)
+   - Currency               : SAR
+   - Default Account        : 110000  Trade Receivables
+   - Company                : Sol Systems Limited Company
+5. Go to tab "Advanced Settings":
+   - Lock Posted Entries     : ✓
+   - Sequence                : INV/%(year)s/%(seq)05d
+6. Save
+
+B. ZATCA e-INVOICING ONBOARDING
+─────────────────────────────────
+1. Go to: Settings → Technical → ZATCA e-Invoicing (or Accounting → Configuration → ZATCA)
+2. Company Settings:
+   - VAT Number             : 312776217500003
+   - CR Number              : (from CR invoice)
+   - Street / City          : Riyadh, KSA
+   - Invoice Type           : Standard Tax Invoice (B2B)
+   - E-Invoice Version      : 2.1
+
+3. Generate Private Key:
+   - Click "Generate Private Key"
+   - Odoo saves the RSA private key internally (never leaves server)
+
+4. Generate CSR:
+   - Click "Generate CSR"
+   - Fill in:
+     Common Name  : Sol Systems Limited Company
+     Organization : Sol Systems Limited Company
+     Country      : SA
+     Unit         : IT
+   - Download the .csr file
+
+5. SANDBOX Testing:
+   - Go to: https://fatoorah-sandbox.zatca.gov.sa
+   - Submit CSR → get OTP
+   - Enter OTP in Odoo ZATCA sandbox form
+   - Post one test invoice → verify ZATCA response = REPORTED
+
+6. PRODUCTION:
+   - Repeat step 4-5 at: https://fatoorah.zatca.gov.sa
+   - Upload PRODUCTION certificate to Odoo
+   - All future invoices will auto-submit to ZATCA on posting
+
+C. DEFAULT TAX ON SALES JOURNAL
+─────────────────────────────────
+After onboarding, go to:
+Accounting → Configuration → Journals → Customer Invoices
+→ Advanced Settings → Default Taxes
+→ Add: "Tax 15.00% (l10n_sa_tax_sale_15)"
+
+This ensures every new invoice line auto-populates the tax.
+
+D. CREDIT NOTE JOURNAL
+────────────────────────
+Accounting → Configuration → Journals → Customer Credit Notes
+- Ensure it is linked to Sales journal
+- ZATCA type = Credit Note (Simplified or Standard)

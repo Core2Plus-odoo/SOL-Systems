@@ -1,0 +1,4 @@
+﻿"id","name","note","line_ids/value","line_ids/value_amount","line_ids/days","line_ids/day_of_the_month","line_ids/option"
+"__export__.account_payment_term_immediate","Immediate Payment","Due on invoice date","balance","0","0","0","day_after_invoice_date"
+"__export__.account_payment_term_30days","30 Days","Net 30 days from invoice date","balance","0","30","0","day_after_invoice_date"
+"__export__.account_payment_term_60days","60 Days","Net 60 days from invoice date","balance","0","60","0","day_after_invoice_date"

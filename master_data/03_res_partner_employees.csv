@@ -1,0 +1,7 @@
+﻿"id","name","company_type","is_company","customer_rank","supplier_rank","vat","country_id/code","street","city","phone","email","ref","property_account_receivable_id/code","property_account_payable_id/code","property_payment_term_id/name"
+"__export__.res_partner_sol_sameer","Sameer Hasan","person","False","0","1","","SA","","Riyadh","","","EMP-001","110000","210000","Immediate"
+"__export__.res_partner_sol_muneeb","Mohammad Muneeb Khan","person","False","0","1","","SA","","Riyadh","","","EMP-002","110000","210000","Immediate"
+"__export__.res_partner_sol_mashael","Mashael Nasser Al-Sahli","person","False","0","1","","SA","","Riyadh","","","EMP-003","110000","210000","Immediate"
+"__export__.res_partner_sol_badriah","Badriah Katib Al-Anzi","person","False","0","1","","SA","","Riyadh","","","EMP-004","110000","210000","Immediate"
+"__export__.res_partner_sol_shabbir","Shabbir Shaik","person","False","0","1","","SA","","Riyadh","","","EMP-005","110000","210000","Immediate"
+"__export__.res_partner_sol_essam","Essam Al-Zahrani","person","False","0","1","","SA","","Riyadh","","","EMP-006","110000","210000","Immediate"

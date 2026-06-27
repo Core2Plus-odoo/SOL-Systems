@@ -1,0 +1,3 @@
+﻿"id","name","company_type","is_company","customer_rank","supplier_rank","vat","country_id/code","street","city","phone","email","ref","property_account_receivable_id/code","property_account_payable_id/code","property_payment_term_id/name"
+"__export__.res_partner_sol_kpmg","KPMG Professional Services","company","True","1","0","300085464810003","SA","King Fahd Road, Al Muruj","Riyadh","","ar-kpmg@kpmg.com","CUST-001","110000","210000","30 Days"
+"__export__.res_partner_sol_gulf","SOL Gulf Communications","company","True","1","0","311302878400003","SA","","Riyadh","","","CUST-002","110000","210000","30 Days"
