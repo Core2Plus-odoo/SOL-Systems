@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sol_financial_dashboard" model="ir.actions.act_url">
+        <field name="name">Financial Dashboard</field>
+        <field name="url">/sol_dashboard</field>
+        <field name="target">self</field>
+    </record>
+
+    <menuitem id="menu_sol_financial_dashboard_root"
+              name="SOL Dashboard"
+              sequence="6"
+              groups="account.group_account_invoice"/>
+
+    <menuitem id="menu_sol_financial_dashboard"
+              name="Financial Dashboard"
+              parent="menu_sol_financial_dashboard_root"
+              action="action_sol_financial_dashboard"
+              sequence="1"
+              groups="account.group_account_invoice"/>
+</odoo>
