@@ -1,0 +1,1136 @@
+{
+  "revenue_by_month": {
+    "2026-04": 276077.47,
+    "2026-05": 93414.97,
+    "2026-06": 69281.25
+  },
+  "expense_by_month": {
+    "2025-05": 29400.0,
+    "2025-08": 1684.14,
+    "2025-09": 11417.82,
+    "2025-10": 1684.14,
+    "2025-11": 1805.5,
+    "2025-12": 1864.14,
+    "2026-01": 46530.990000000005,
+    "2026-02": 70710.91,
+    "2026-03": 56047.68,
+    "2026-04": 70834.41,
+    "2026-05": 42597.6
+  },
+  "payroll_by_month": {
+    "2025-12": 70367.11,
+    "2026-01": 27556.0,
+    "2026-02": 67797.0,
+    "2026-03": 24001.0,
+    "2026-04": 32003.0,
+    "2026-05": 28002.0
+  },
+  "expense_by_account": {
+    "Office/Payroll/Agency": 73910.43,
+    "Salaries - Direct": 164516.13,
+    "Gov Fees - Direct": 4000.0,
+    "GOSI - Direct": 2337.5,
+    "Insurance": 12063.54,
+    "GOSI Contribution": 20314.24,
+    "GOSI Penalty": 100.68,
+    "Fixed Assets (Laptop)": 4346.96,
+    "Professional & Audit Fees": 15300.0,
+    "IT Software": 3850.0,
+    "Government Fees & Licenses": 23445.85,
+    "QIWA Subscription": 1210.0,
+    "CR / Incorporation": 1600.0,
+    "Miscellaneous": 230.0,
+    "Travel & Transport": 7352.0
+  },
+  "invoices": [
+    {
+      "name": "INV-1",
+      "date": "2026-04-14",
+      "partner": "KPMG Professional Services",
+      "total": 207843.75,
+      "type": "out_invoice"
+    },
+    {
+      "name": "CN-1",
+      "date": "2026-05-10",
+      "partner": "KPMG Professional Services",
+      "total": -207843.75,
+      "type": "out_refund"
+    },
+    {
+      "name": "INV-2",
+      "date": "2026-04-14",
+      "partner": "SOL Gulf Communications",
+      "total": 68233.72,
+      "type": "out_invoice"
+    },
+    {
+      "name": "INV-3",
+      "date": "2026-05-13",
+      "partner": "KPMG Professional Services",
+      "total": 207843.75,
+      "type": "out_invoice"
+    },
+    {
+      "name": "INV-4",
+      "date": "2026-05-18",
+      "partner": "SOL Gulf Communications",
+      "total": 24133.72,
+      "type": "out_invoice"
+    },
+    {
+      "name": "INV-5",
+      "date": "2026-05-31",
+      "partner": "KPMG Professional Services",
+      "total": 69281.25,
+      "type": "out_invoice"
+    },
+    {
+      "name": "INV-6",
+      "date": "2026-06-02",
+      "partner": "KPMG Professional Services",
+      "total": 69281.25,
+      "type": "out_invoice"
+    }
+  ],
+  "bills_count": 43,
+  "invoices_count": 7,
+  "total_revenue_excl": 438773.69,
+  "total_expense_excl": 584303.44,
+  "snb": {
+    "in_total": 1117370.94,
+    "out_total": 490255.5,
+    "net": 627115.44,
+    "by_month": {
+      "2025-12": 296379.66,
+      "2026-01": 628092.76,
+      "2026-02": -65411.17,
+      "2026-03": -14279.62,
+      "2026-04": -147584.39,
+      "2026-05": -70081.8
+    },
+    "timeline": [
+      {
+        "date": "2025-12-17",
+        "amount": 183169.98,
+        "balance": 183169.98,
+        "ref": "SAMEER HASAN MEBLAEAD Incoming SWIFT"
+      },
+      {
+        "date": "2025-12-17",
+        "amount": -3489.64,
+        "balance": 179680.34,
+        "ref": "GOSI Nov 2025 SADAD"
+      },
+      {
+        "date": "2025-12-25",
+        "amount": 186736.12,
+        "balance": 366416.46,
+        "ref": "MOHAMMAD MUNEEB KHAN MEBLAEAD Incoming SWIFT"
+      },
+      {
+        "date": "2025-12-25",
+        "amount": -25.0,
+        "balance": 366391.46,
+        "ref": "Digital Channel fee"
+      },
+      {
+        "date": "2025-12-25",
+        "amount": -3.75,
+        "balance": 366387.71,
+        "ref": "Digital Channel VAT"
+      },
+      {
+        "date": "2025-12-28",
+        "amount": -70000.0,
+        "balance": 296387.71,
+        "ref": "Transfer to Riyadh Bank SOL SYSTEMS LIMITED"
+      },
+      {
+        "date": "2025-12-28",
+        "amount": -7.0,
+        "balance": 296380.71,
+        "ref": "Digital Channel fee"
+      },
+      {
+        "date": "2025-12-28",
+        "amount": -1.05,
+        "balance": 296379.66,
+        "ref": "Digital Channel VAT"
+      },
+      {
+        "date": "2026-01-05",
+        "amount": -33810.0,
+        "balance": 262569.66,
+        "ref": "ASTROLABS BUSINESS INCUBATORS"
+      },
+      {
+        "date": "2026-01-05",
+        "amount": -7.0,
+        "balance": 262562.66,
+        "ref": "Digital Channel fee"
+      },
+      {
+        "date": "2026-01-05",
+        "amount": -1.05,
+        "balance": 262561.61,
+        "ref": "Digital Channel VAT"
+      },
+      {
+        "date": "2026-01-14",
+        "amount": -40000.0,
+        "balance": 222561.61,
+        "ref": "SOL SYSTEMS LIMITED Transfer to Riyadh Bank"
+      },
+      {
+        "date": "2026-01-14",
+        "amount": -7.0,
+        "balance": 222554.61,
+        "ref": "Digital Channel fee"
+      },
+      {
+        "date": "2026-01-14",
+        "amount": -1.05,
+        "balance": 222553.56,
+        "ref": "Digital Channel VAT"
+      },
+      {
+        "date": "2026-01-14",
+        "amount": 373732.42,
+        "balance": 596285.98,
+        "ref": "SAMEER HASAN MEBLAEAD Incoming International"
+      },
+      {
+        "date": "2026-01-14",
+        "amount": -25.0,
+        "balance": 596260.98,
+        "ref": "Digital Channel fee SWIFT"
+      },
+      {
+        "date": "2026-01-14",
+        "amount": -3.75,
+        "balance": 596257.23,
+        "ref": "Digital Channel VAT SWIFT"
+      },
+      {
+        "date": "2026-01-14",
+        "amount": 373732.42,
+        "balance": 969989.65,
+        "ref": "MOHAMMAD MUNEEB KHAN MEBLAEAD Incoming International"
+      },
+      {
+        "date": "2026-01-14",
+        "amount": -25.0,
+        "balance": 969964.65,
+        "ref": "Digital Channel fee SWIFT"
+      },
+      {
+        "date": "2026-01-14",
+        "amount": -3.75,
+        "balance": 969960.9,
+        "ref": "Digital Channel VAT SWIFT"
+      },
+      {
+        "date": "2026-01-15",
+        "amount": -4999.0,
+        "balance": 964961.9,
+        "ref": "SAMEER HASAN HASAN Laptop Jarir"
+      },
+      {
+        "date": "2026-01-15",
+        "amount": -1.0,
+        "balance": 964960.9,
+        "ref": "Digital Channel fee"
+      },
+      {
+        "date": "2026-01-15",
+        "amount": -0.15,
+        "balance": 964960.75,
+        "ref": "Digital Channel VAT"
+      },
+      {
+        "date": "2026-01-17",
+        "amount": -1895.0,
+        "balance": 963065.75,
+        "ref": "MOHAMMAD MUNEEB KHAN Travel Reimbursement"
+      },
+      {
+        "date": "2026-01-17",
+        "amount": -1.0,
+        "balance": 963064.75,
+        "ref": "Digital Channel fee"
+      },
+      {
+        "date": "2026-01-17",
+        "amount": -0.15,
+        "balance": 963064.6,
+        "ref": "Digital Channel VAT"
+      },
+      {
+        "date": "2026-01-18",
+        "amount": -20.0,
+        "balance": 963044.6,
+        "ref": "Monthly fees SNB"
+      },
+      {
+        "date": "2026-01-18",
+        "amount": -3.0,
+        "balance": 963041.6,
+        "ref": "Monthly fees VAT SNB"
+      },
+      {
+        "date": "2026-01-27",
+        "amount": -38561.13,
+        "balance": 924480.47,
+        "ref": "COMPANY ELBADAYAT ALMARNAH FlexiStart Inv 00010"
+      },
+      {
+        "date": "2026-01-27",
+        "amount": -7.0,
+        "balance": 924473.47,
+        "ref": "Digital Channel fee"
+      },
+      {
+        "date": "2026-01-27",
+        "amount": -1.05,
+        "balance": 924472.42,
+        "ref": "Digital Channel VAT"
+      },
+      {
+        "date": "2026-02-13",
+        "amount": -10000.0,
+        "balance": 914472.42,
+        "ref": "ASTROLABS BUSINESS INCUBATORS INV-9430"
+      },
+      {
+        "date": "2026-02-13",
+        "amount": -1.0,
+        "balance": 914471.42,
+        "ref": "Digital Channel fee"
+      },
+      {
+        "date": "2026-02-13",
+        "amount": -0.15,
+        "balance": 914471.27,
+        "ref": "Digital Channel VAT"
+      },
+      {
+        "date": "2026-02-15",
+        "amount": -2455.4,
+        "balance": 912015.87,
+        "ref": "GOSI Jan 2026 SADAD"
+      },
+      {
+        "date": "2026-02-17",
+        "amount": -1500.0,
+        "balance": 910515.87,
+        "ref": "MOHAMMAD MUNEEB KHAN Travel"
+      },
+      {
+        "date": "2026-02-17",
+        "amount": -1.0,
+        "balance": 910514.87,
+        "ref": "Digital Channel fee"
+      },
+      {
+        "date": "2026-02-17",
+        "amount": -0.15,
+        "balance": 910514.72,
+        "ref": "Digital Channel VAT"
+      },
+      {
+        "date": "2026-02-18",
+        "amount": -20.0,
+        "balance": 910494.72,
+        "ref": "Monthly fees SNB"
+      },
+      {
+        "date": "2026-02-18",
+        "amount": -3.0,
+        "balance": 910491.72,
+        "ref": "Monthly fees VAT SNB"
+      },
+      {
+        "date": "2026-02-24",
+        "amount": -51422.42,
+        "balance": 859069.3,
+        "ref": "COMPANY ELBADAYAT ALMARNAH FlexiStart Inv 00021"
+      },
+      {
+        "date": "2026-02-24",
+        "amount": -7.0,
+        "balance": 859062.3,
+        "ref": "Digital Channel fee"
+      },
+      {
+        "date": "2026-02-24",
+        "amount": -1.05,
+        "balance": 859061.25,
+        "ref": "Digital Channel VAT"
+      },
+      {
+        "date": "2026-03-04",
+        "amount": -299.49,
+        "balance": 858761.76,
+        "ref": "ASTROLABS BUSINESS INCUBATORS Misc"
+      },
+      {
+        "date": "2026-03-04",
+        "amount": -0.5,
+        "balance": 858761.26,
+        "ref": "Digital Channel fee"
+      },
+      {
+        "date": "2026-03-04",
+        "amount": -0.08,
+        "balance": 858761.18,
+        "ref": "Digital Channel VAT"
+      },
+      {
+        "date": "2026-03-04",
+        "amount": -11500.0,
+        "balance": 847261.18,
+        "ref": "ASTROLABS BUSINESS INCUBATORS INV-9616"
+      },
+      {
+        "date": "2026-03-04",
+        "amount": -1.0,
+        "balance": 847260.18,
+        "ref": "Digital Channel fee"
+      },
+      {
+        "date": "2026-03-04",
+        "amount": -0.15,
+        "balance": 847260.03,
+        "ref": "Digital Channel VAT"
+      },
+      {
+        "date": "2026-03-13",
+        "amount": -2455.4,
+        "balance": 844804.63,
+        "ref": "GOSI Mar 2026 SADAD"
+      },
+      {
+        "date": "2026-03-18",
+        "amount": -20.0,
+        "balance": 844784.63,
+        "ref": "Monthly fees SNB"
+      },
+      {
+        "date": "2026-03-18",
+        "amount": -3.0,
+        "balance": 844781.63,
+        "ref": "Monthly fees VAT SNB"
+      },
+      {
+        "date": "2026-04-07",
+        "amount": -40045.0,
+        "balance": 804736.63,
+        "ref": "COMPANY ELBADAYAT ALMARNAH FlexiStart Inv 00033"
+      },
+      {
+        "date": "2026-04-07",
+        "amount": -5.0,
+        "balance": 804731.63,
+        "ref": "Digital Channel fee"
+      },
+      {
+        "date": "2026-04-07",
+        "amount": -0.75,
+        "balance": 804730.88,
+        "ref": "Digital Channel VAT"
+      },
+      {
+        "date": "2026-04-14",
+        "amount": -2724.14,
+        "balance": 802006.74,
+        "ref": "GOSI Apr 2026 SADAD"
+      },
+      {
+        "date": "2026-04-15",
+        "amount": -34730.0,
+        "balance": 767276.74,
+        "ref": "Bid Bond 6134226B328425000"
+      },
+      {
+        "date": "2026-04-18",
+        "amount": -20.0,
+        "balance": 767256.74,
+        "ref": "Monthly fees SNB"
+      },
+      {
+        "date": "2026-04-18",
+        "amount": -3.0,
+        "balance": 767253.74,
+        "ref": "Monthly fees VAT SNB"
+      },
+      {
+        "date": "2026-04-23",
+        "amount": -30000.0,
+        "balance": 737253.74,
+        "ref": "SOL SYSTEMS LIMITED Transfer to Riyadh Bank"
+      },
+      {
+        "date": "2026-04-23",
+        "amount": -5.0,
+        "balance": 737248.74,
+        "ref": "Digital Channel fee"
+      },
+      {
+        "date": "2026-04-23",
+        "amount": -0.75,
+        "balance": 737247.99,
+        "ref": "Digital Channel VAT"
+      },
+      {
+        "date": "2026-04-26",
+        "amount": -40045.0,
+        "balance": 697202.99,
+        "ref": "COMPANY ELBADAYAT ALMARNAH FlexiStart Inv 00045"
+      },
+      {
+        "date": "2026-04-26",
+        "amount": -5.0,
+        "balance": 697197.99,
+        "ref": "Digital Channel fee"
+      },
+      {
+        "date": "2026-04-26",
+        "amount": -0.75,
+        "balance": 697197.24,
+        "ref": "Digital Channel VAT"
+      },
+      {
+        "date": "2026-05-14",
+        "amount": -40045.0,
+        "balance": 657152.24,
+        "ref": "COMPANY ELBADAYAT ALMARNAH FlexiStart Inv 00055"
+      },
+      {
+        "date": "2026-05-14",
+        "amount": -5.0,
+        "balance": 657147.24,
+        "ref": "Digital Channel fee"
+      },
+      {
+        "date": "2026-05-14",
+        "amount": -0.75,
+        "balance": 657146.49,
+        "ref": "Digital Channel VAT"
+      },
+      {
+        "date": "2026-05-18",
+        "amount": -20.0,
+        "balance": 657126.49,
+        "ref": "Monthly fees SNB"
+      },
+      {
+        "date": "2026-05-18",
+        "amount": -3.0,
+        "balance": 657123.49,
+        "ref": "Monthly fees VAT SNB"
+      },
+      {
+        "date": "2026-05-21",
+        "amount": -30000.0,
+        "balance": 627123.49,
+        "ref": "SOL SYSTEMS LIMITED Transfer to Riyadh Bank"
+      },
+      {
+        "date": "2026-05-21",
+        "amount": -7.0,
+        "balance": 627116.49,
+        "ref": "Digital Channel fee"
+      },
+      {
+        "date": "2026-05-21",
+        "amount": -1.05,
+        "balance": 627115.44,
+        "ref": "Digital Channel VAT"
+      }
+    ],
+    "txn_count": 73
+  },
+  "riyadh": {
+    "in_total": 375010.54,
+    "out_total": 332386.49,
+    "net": 42624.05,
+    "by_month": {
+      "2025-08": 1315.86,
+      "2025-09": -417.82,
+      "2025-12": 290.85,
+      "2026-01": 10569.51,
+      "2026-02": 39169.9,
+      "2026-03": -4786.03,
+      "2026-04": -30774.93,
+      "2026-05": 27256.71
+    },
+    "timeline": [
+      {
+        "date": "2025-08-31",
+        "amount": 3000.0,
+        "balance": 3000.0,
+        "ref": "MOHAMMAD MUNEEB KHAN Incoming Instant"
+      },
+      {
+        "date": "2025-08-31",
+        "amount": -1684.14,
+        "balance": 1315.86,
+        "ref": "GOSI Aug 2025 SADAD"
+      },
+      {
+        "date": "2025-09-30",
+        "amount": 10000.0,
+        "balance": 11315.86,
+        "ref": "MOHAMMAD MUNEEB KHAN Incoming Instant"
+      },
+      {
+        "date": "2025-09-30",
+        "amount": -9700.0,
+        "balance": 1615.86,
+        "ref": "Iqama Bill Sameer MOL"
+      },
+      {
+        "date": "2025-09-30",
+        "amount": 1000.0,
+        "balance": 2615.86,
+        "ref": "MOHAMMAD MUNEEB KHAN Incoming Instant"
+      },
+      {
+        "date": "2025-09-30",
+        "amount": -1717.82,
+        "balance": 898.04,
+        "ref": "GOSI Sep 2025 SADAD"
+      },
+      {
+        "date": "2025-12-28",
+        "amount": 70000.0,
+        "balance": 70898.04,
+        "ref": "SNB SOL SYSTEMS Incoming Transfer"
+      },
+      {
+        "date": "2025-12-28",
+        "amount": -10.35,
+        "balance": 70887.69,
+        "ref": "Payroll Processing Fee"
+      },
+      {
+        "date": "2025-12-28",
+        "amount": -6.9,
+        "balance": 70880.79,
+        "ref": "Payroll Processing Fee"
+      },
+      {
+        "date": "2025-12-28",
+        "amount": -6.9,
+        "balance": 70873.89,
+        "ref": "Payroll Processing Fee"
+      },
+      {
+        "date": "2025-12-28",
+        "amount": -29685.0,
+        "balance": 41188.89,
+        "ref": "Payroll file 6003918594 Dec 2025"
+      },
+      {
+        "date": "2025-12-28",
+        "amount": -20000.0,
+        "balance": 21188.89,
+        "ref": "Payroll file 6003918642 Oct 2025 Backlog"
+      },
+      {
+        "date": "2025-12-28",
+        "amount": -20000.0,
+        "balance": 1188.89,
+        "ref": "Payroll file 6003918597 Nov 2025 Backlog"
+      },
+      {
+        "date": "2026-01-14",
+        "amount": 40000.0,
+        "balance": 41188.89,
+        "ref": "SNB SOL SYSTEMS Incoming Transfer"
+      },
+      {
+        "date": "2026-01-15",
+        "amount": -1864.14,
+        "balance": 39324.75,
+        "ref": "GOSI Dec 2025 SADAD"
+      },
+      {
+        "date": "2026-01-29",
+        "amount": -27556.0,
+        "balance": 11768.75,
+        "ref": "Payroll file 6003965438 Jan 2026 FAILED"
+      },
+      {
+        "date": "2026-01-29",
+        "amount": -10.35,
+        "balance": 11758.4,
+        "ref": "Payroll Processing Fee"
+      },
+      {
+        "date": "2026-02-02",
+        "amount": -1.15,
+        "balance": 11757.25,
+        "ref": "Instant payment fee VAT"
+      },
+      {
+        "date": "2026-02-02",
+        "amount": -9685.0,
+        "balance": 2072.25,
+        "ref": "MASHAEL NASSER Jan salary manual"
+      },
+      {
+        "date": "2026-02-08",
+        "amount": -6.9,
+        "balance": 2065.35,
+        "ref": "Payroll Processing Fee"
+      },
+      {
+        "date": "2026-02-08",
+        "amount": -20000.0,
+        "balance": -17934.65,
+        "ref": "Payroll file 6003986321 Jan 2026 rerun"
+      },
+      {
+        "date": "2026-02-09",
+        "amount": 45067.51,
+        "balance": 27132.86,
+        "ref": "Customer receipt INV-2 KPMG tranche 1"
+      },
+      {
+        "date": "2026-02-09",
+        "amount": 27556.0,
+        "balance": 54688.86,
+        "ref": "Cancelled payroll refund 29-Jan"
+      },
+      {
+        "date": "2026-02-10",
+        "amount": -3731.0,
+        "balance": 50957.86,
+        "ref": "BADRIAH KATIB Jan salary manual"
+      },
+      {
+        "date": "2026-02-25",
+        "amount": 33401.26,
+        "balance": 84359.12,
+        "ref": "Customer receipt INV-2 KPMG tranche 2"
+      },
+      {
+        "date": "2026-02-26",
+        "amount": -33417.02,
+        "balance": 50942.1,
+        "ref": "Payroll file 6004014321 Feb 2026"
+      },
+      {
+        "date": "2026-02-26",
+        "amount": -13.8,
+        "balance": 50928.3,
+        "ref": "Payroll Processing Fee"
+      },
+      {
+        "date": "2026-03-02",
+        "amount": -8000.0,
+        "balance": 42928.3,
+        "ref": "SAMEER HASAN Owner Drawing"
+      },
+      {
+        "date": "2026-03-02",
+        "amount": -8000.0,
+        "balance": 34928.3,
+        "ref": "MOHAMMAD MUNEEB KHAN Owner Drawing"
+      },
+      {
+        "date": "2026-03-02",
+        "amount": -8000.0,
+        "balance": 26928.3,
+        "ref": "MASHAEL NASSER Payment reversed 04-Mar"
+      },
+      {
+        "date": "2026-03-02",
+        "amount": -3.45,
+        "balance": 26924.85,
+        "ref": "Instant payment fees x3"
+      },
+      {
+        "date": "2026-03-04",
+        "amount": 8000.0,
+        "balance": 34924.85,
+        "ref": "MASHAEL NASSER Reversal credit back"
+      },
+      {
+        "date": "2026-03-06",
+        "amount": -1075.25,
+        "balance": 33849.6,
+        "ref": "TAREQ AHMAD QIWA Platform Fee"
+      },
+      {
+        "date": "2026-03-06",
+        "amount": -0.58,
+        "balance": 33849.02,
+        "ref": "Instant payment fee VAT"
+      },
+      {
+        "date": "2026-03-10",
+        "amount": -1.15,
+        "balance": 33847.87,
+        "ref": "Instant payment fee VAT"
+      },
+      {
+        "date": "2026-03-10",
+        "amount": -11500.0,
+        "balance": 22347.87,
+        "ref": "Abdullah Alfuraih Audit Fee"
+      },
+      {
+        "date": "2026-03-17",
+        "amount": -316.25,
+        "balance": 22031.62,
+        "ref": "QIWA Subscription SADAD"
+      },
+      {
+        "date": "2026-03-24",
+        "amount": -1500.0,
+        "balance": 20531.62,
+        "ref": "E_PROCURE Etimad SADAD"
+      },
+      {
+        "date": "2026-03-31",
+        "amount": 49232.0,
+        "balance": 69763.62,
+        "ref": "MOHAMMAD MUNEEB KHAN Incoming Transfer"
+      },
+      {
+        "date": "2026-03-31",
+        "amount": -10.35,
+        "balance": 69753.27,
+        "ref": "Payroll Processing Fee"
+      },
+      {
+        "date": "2026-03-31",
+        "amount": -23611.0,
+        "balance": 46142.27,
+        "ref": "Payroll file 6004082681 Mar 2026"
+      },
+      {
+        "date": "2026-04-01",
+        "amount": -700.0,
+        "balance": 45442.27,
+        "ref": "E_PROCURE Etimad Additional"
+      },
+      {
+        "date": "2026-04-01",
+        "amount": -2280.0,
+        "balance": 43162.27,
+        "ref": "Janahin Translation payment 1"
+      },
+      {
+        "date": "2026-04-01",
+        "amount": -4427.5,
+        "balance": 38734.77,
+        "ref": "GESCO TallyPrime"
+      },
+      {
+        "date": "2026-04-01",
+        "amount": -1.15,
+        "balance": 38733.62,
+        "ref": "Instant payment fee VAT"
+      },
+      {
+        "date": "2026-04-03",
+        "amount": -1100.0,
+        "balance": 37633.62,
+        "ref": "SHABBIR SHAIK Travel"
+      },
+      {
+        "date": "2026-04-03",
+        "amount": -0.58,
+        "balance": 37633.04,
+        "ref": "Instant payment fee VAT"
+      },
+      {
+        "date": "2026-04-04",
+        "amount": -3611.0,
+        "balance": 34022.04,
+        "ref": "Payroll file 6004090853 Mar supplement"
+      },
+      {
+        "date": "2026-04-04",
+        "amount": -3.45,
+        "balance": 34018.59,
+        "ref": "Payroll Processing Fee"
+      },
+      {
+        "date": "2026-04-04",
+        "amount": -1825.0,
+        "balance": 32193.59,
+        "ref": "SCEB CR Amendment"
+      },
+      {
+        "date": "2026-04-04",
+        "amount": -2724.14,
+        "balance": 29469.45,
+        "ref": "GOSI Apr 2026 SADAD"
+      },
+      {
+        "date": "2026-04-13",
+        "amount": -507.0,
+        "balance": 28962.45,
+        "ref": "SHABBIR SHAIK Travel"
+      },
+      {
+        "date": "2026-04-13",
+        "amount": -0.58,
+        "balance": 28961.87,
+        "ref": "Instant payment fee VAT"
+      },
+      {
+        "date": "2026-04-19",
+        "amount": -600.0,
+        "balance": 28361.87,
+        "ref": "SHABBIR SHAIK Hotel"
+      },
+      {
+        "date": "2026-04-19",
+        "amount": -0.58,
+        "balance": 28361.29,
+        "ref": "Instant payment fee VAT"
+      },
+      {
+        "date": "2026-04-25",
+        "amount": 30000.0,
+        "balance": 58361.29,
+        "ref": "SNB SOL SYSTEMS Incoming Transfer"
+      },
+      {
+        "date": "2026-04-25",
+        "amount": -1391.5,
+        "balance": 56969.79,
+        "ref": "ELM Muneeb Iqama TBC2604263587310"
+      },
+      {
+        "date": "2026-04-25",
+        "amount": -8500.0,
+        "balance": 48469.79,
+        "ref": "MOL Muneeb Work Permit TBC2604263587900"
+      },
+      {
+        "date": "2026-04-25",
+        "amount": -650.0,
+        "balance": 47819.79,
+        "ref": "Residents Muneeb Iqama Renewal TBC2604263588345"
+      },
+      {
+        "date": "2026-04-26",
+        "amount": -13.8,
+        "balance": 47805.99,
+        "ref": "Payroll Processing Fee"
+      },
+      {
+        "date": "2026-04-26",
+        "amount": -27222.0,
+        "balance": 20583.99,
+        "ref": "Payroll file 6004121040 Apr 2026"
+      },
+      {
+        "date": "2026-04-28",
+        "amount": -2496.65,
+        "balance": 18087.34,
+        "ref": "EDAAT Salamah Insurance SADAD"
+      },
+      {
+        "date": "2026-04-28",
+        "amount": -1520.0,
+        "balance": 16567.34,
+        "ref": "Janahin Translation payment 2"
+      },
+      {
+        "date": "2026-04-29",
+        "amount": -1200.0,
+        "balance": 15367.34,
+        "ref": "Residents Muneeb Exit Reentry TBC2604293901194"
+      },
+      {
+        "date": "2026-05-02",
+        "amount": -1100.0,
+        "balance": 14267.34,
+        "ref": "SHABBIR SHAIK Travel"
+      },
+      {
+        "date": "2026-05-02",
+        "amount": -0.58,
+        "balance": 14266.76,
+        "ref": "Instant payment fee VAT"
+      },
+      {
+        "date": "2026-05-03",
+        "amount": -230.0,
+        "balance": 14036.76,
+        "ref": "ELM Unknown SADAD"
+      },
+      {
+        "date": "2026-05-03",
+        "amount": -1300.1,
+        "balance": 12736.66,
+        "ref": "GOSI May 2026 SADAD"
+      },
+      {
+        "date": "2026-05-18",
+        "amount": 27753.77,
+        "balance": 40490.43,
+        "ref": "Customer receipt INV-4 SOL Gulf"
+      },
+      {
+        "date": "2026-05-19",
+        "amount": -27202.0,
+        "balance": 13288.43,
+        "ref": "Payroll file 6004165249 May 2026"
+      },
+      {
+        "date": "2026-05-19",
+        "amount": -650.0,
+        "balance": 12638.43,
+        "ref": "SHABBIR SHAIK Travel"
+      },
+      {
+        "date": "2026-05-19",
+        "amount": -0.58,
+        "balance": 12637.85,
+        "ref": "Instant payment fee VAT"
+      },
+      {
+        "date": "2026-05-19",
+        "amount": -13.8,
+        "balance": 12624.05,
+        "ref": "Payroll Processing Fee"
+      },
+      {
+        "date": "2026-05-24",
+        "amount": 30000.0,
+        "balance": 42624.05,
+        "ref": "SNB SOL SYSTEMS Incoming Transfer"
+      }
+    ],
+    "txn_count": 74
+  },
+  "vendor_spend": [
+    {
+      "name": "FlexiStart (ELBADAYAT ALMARNAH)",
+      "amount": 204997.04
+    },
+    {
+      "name": "AstroLabs Business Incubators",
+      "amount": 49660.43
+    },
+    {
+      "name": "GOSI (General Organisation for Social Insurance)",
+      "amount": 20414.92
+    },
+    {
+      "name": "Abdullah Alfuraih Certified Public Accountant",
+      "amount": 11500.0
+    },
+    {
+      "name": "Ministry of Human Resources (MOL)",
+      "amount": 9700.0
+    },
+    {
+      "name": "Ministry of Human Resources (HRSD)",
+      "amount": 8500.0
+    },
+    {
+      "name": "Jarir Bookstore",
+      "amount": 4346.96
+    },
+    {
+      "name": "Shabbir Shaik",
+      "amount": 3957.0
+    },
+    {
+      "name": "GESCO Al-Saoudiya (Saudi Gisco)",
+      "amount": 3850.0
+    },
+    {
+      "name": "Janahin Translation",
+      "amount": 3800.0
+    },
+    {
+      "name": "Mohammad Muneeb Khan",
+      "amount": 3395.0
+    },
+    {
+      "name": "Salamah Insurance / EDAAT (Tameeni)",
+      "amount": 2170.13
+    },
+    {
+      "name": "E_PROCURE (Etimad Portal)",
+      "amount": 2004.35
+    },
+    {
+      "name": "Residents Services (Absher / MOI)",
+      "amount": 1850.0
+    },
+    {
+      "name": "ELM (Elm Company)",
+      "amount": 1621.5
+    },
+    {
+      "name": "Saudi Competitiveness & Business Center",
+      "amount": 1600.0
+    },
+    {
+      "name": "QIWA Platform",
+      "amount": 1210.0
+    }
+  ],
+  "flags": [
+    {
+      "doc": "ASTRO-MISC-MAR26",
+      "partner": "AstroLabs Business Incubators",
+      "date": "2026-03-04",
+      "note": "WARNING: No invoice on file - request from AstroLabs"
+    },
+    {
+      "doc": "GOSI-MAR2026",
+      "partner": "GOSI (General Organisation for Social Insurance)",
+      "date": "2026-03-31",
+      "note": "WARNING: Bill PDF not in file - download from GOSI portal (Reg: 652836003)"
+    },
+    {
+      "doc": "GOSI-APR2026-RIB",
+      "partner": "GOSI (General Organisation for Social Insurance)",
+      "date": "2026-04-30",
+      "note": "REVIEW: Possible duplicate - Apr 2026 via Riyadh Bank 04-Apr. Confirm if Mar or Apr."
+    },
+    {
+      "doc": "GOSI-MAY2026",
+      "partner": "GOSI (General Organisation for Social Insurance)",
+      "date": "2026-05-31",
+      "note": "WARNING: Bill PDF not in file - download from GOSI portal (Reg: 652836003)"
+    },
+    {
+      "doc": "JANAHIN-APR-1",
+      "partner": "Janahin Translation",
+      "date": "2026-04-01",
+      "note": "WARNING: Invoice not received - chase Irfan"
+    },
+    {
+      "doc": "JANAHIN-APR-2",
+      "partner": "Janahin Translation",
+      "date": "2026-04-28",
+      "note": "WARNING: Invoice not received - chase Irfan"
+    },
+    {
+      "doc": "ETIMAD-APR26",
+      "partner": "E_PROCURE (Etimad Portal)",
+      "date": "2026-04-01",
+      "note": "WARNING: Additional Etimad payment - confirm purpose with Tarek"
+    },
+    {
+      "doc": "ELM-MAY26-UNK",
+      "partner": "ELM (Elm Company)",
+      "date": "2026-05-03",
+      "note": "WARNING: Purpose unknown - confirm with Irfan before posting"
+    }
+  ]
+}
