@@ -1,0 +1,189 @@
+# -*- coding: utf-8 -*-
+import base64
+
+from odoo import fields, models
+
+_EN_ONES = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine']
+_EN_TEENS = ['Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen',
+             'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen']
+_EN_TENS = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety']
+_EN_SCALE = ['', 'Thousand', 'Million', 'Billion']
+
+_AR_ONES = ['', 'واحد', 'اثنان', 'ثلاثة', 'أربعة', 'خمسة', 'ستة', 'سبعة', 'ثمانية', 'تسعة']
+_AR_TEENS = ['عشرة', 'أحد عشر', 'اثنا عشر', 'ثلاثة عشر', 'أربعة عشر', 'خمسة عشر',
+             'ستة عشر', 'سبعة عشر', 'ثمانية عشر', 'تسعة عشر']
+_AR_TENS = ['', '', 'عشرون', 'ثلاثون', 'أربعون', 'خمسون', 'ستون', 'سبعون', 'ثمانون', 'تسعون']
+_AR_HUNDREDS = ['', 'مائة', 'مائتان', 'ثلاثمائة', 'أربعمائة', 'خمسمائة',
+                'ستمائة', 'سبعمائة', 'ثمانمائة', 'تسعمائة']
+_AR_SCALE = ['', 'ألف', 'مليون', 'مليار']
+_AR_DIGITS = '٠١٢٣٤٥٦٧٨٩'
+
+
+def _en_under_1000(n):
+    parts = []
+    if n >= 100:
+        parts.append(_EN_ONES[n // 100] + ' Hundred')
+        n %= 100
+    if 10 <= n < 20:
+        parts.append(_EN_TEENS[n - 10])
+    elif n >= 20:
+        tens = _EN_TENS[n // 10]
+        parts.append(tens + (' ' + _EN_ONES[n % 10] if n % 10 else ''))
+    elif n > 0:
+        parts.append(_EN_ONES[n])
+    return ' '.join(parts)
+
+
+def number_to_words_en(n):
+    if n == 0:
+        return 'Zero'
+    groups = []
+    scale = 0
+    while n > 0:
+        n, rem = divmod(n, 1000)
+        if rem:
+            groups.append((rem, scale))
+        scale += 1
+    groups.reverse()
+    words = []
+    for val, scale in groups:
+        w = _en_under_1000(val)
+        if scale:
+            w += ' ' + _EN_SCALE[scale]
+        words.append(w)
+    return ' '.join(words)
+
+
+def amount_to_words_en(amount, currency_name='Saudi Arabian Riyal', subunit_name='Halala'):
+    riyals = int(amount)
+    halalas = round((amount - riyals) * 100)
+    parts = [currency_name, number_to_words_en(riyals)]
+    if halalas:
+        parts += ['and', number_to_words_en(halalas), subunit_name]
+    parts.append('Only')
+    return ' '.join(parts)
+
+
+def _ar_under_1000(n):
+    parts = []
+    if n >= 100:
+        parts.append(_AR_HUNDREDS[n // 100])
+        n %= 100
+    if 10 <= n < 20:
+        parts.append(_AR_TEENS[n - 10])
+    else:
+        ones, tens = n % 10, n // 10
+        sub = []
+        if ones:
+            sub.append(_AR_ONES[ones])
+        if tens >= 2:
+            sub.append(_AR_TENS[tens])
+        if sub:
+            parts.append(' و'.join(sub))
+    return ' و'.join(parts)
+
+
+def number_to_words_ar(n):
+    if n == 0:
+        return 'صفر'
+    groups = []
+    scale = 0
+    while n > 0:
+        n, rem = divmod(n, 1000)
+        if rem:
+            groups.append((rem, scale))
+        scale += 1
+    groups.reverse()
+    words = []
+    for val, scale in groups:
+        w = _ar_under_1000(val)
+        if scale:
+            if val == 1:
+                w = _AR_SCALE[scale]
+            elif val == 2:
+                w = _AR_SCALE[scale] + 'ان'
+            else:
+                w = w + ' ' + _AR_SCALE[scale]
+        words.append(w)
+    return ' و'.join(words)
+
+
+def amount_to_words_ar(amount, currency_name='ريال سعودي', subunit_name='هللة'):
+    riyals = int(amount)
+    halalas = round((amount - riyals) * 100)
+    parts = [number_to_words_ar(riyals), currency_name]
+    if halalas:
+        parts += ['و', number_to_words_ar(halalas), subunit_name]
+    parts.append('فقط')
+    return ' '.join(parts)
+
+
+def to_arabic_digits(value):
+    out = []
+    for ch in str(value):
+        if ch.isdigit():
+            out.append(_AR_DIGITS[int(ch)])
+        elif ch == ',':
+            out.append('٬')
+        elif ch == '.':
+            out.append('٫')
+        else:
+            out.append(ch)
+    return ''.join(out)
+
+
+def _tlv(tag, value):
+    value_bytes = value.encode('utf-8')
+    return bytes([tag]) + bytes([len(value_bytes)]) + value_bytes
+
+
+class AccountMove(models.Model):
+    _inherit = 'account.move'
+
+    def sol_einvoice_number(self):
+        self.ensure_one()
+        dt = self.invoice_date or fields.Date.context_today(self)
+        return '%02d%02d%02d%06d%03d' % (
+            dt.day, dt.month, dt.year % 100,
+            int(self.create_date.strftime('%H%M%S')) if self.create_date else 0,
+            self.id % 1000,
+        )
+
+    def sol_zatca_qr(self):
+        self.ensure_one()
+        company = self.company_id
+        seller_name = company.name or ''
+        vat_number = company.vat or ''
+        timestamp = (self.invoice_date or fields.Date.context_today(self)).strftime('%Y-%m-%dT%H:%M:%SZ')
+        total = '%.2f' % self.amount_total
+        vat_amount = '%.2f' % self.amount_tax
+        raw = b''.join([
+            _tlv(1, seller_name),
+            _tlv(2, vat_number),
+            _tlv(3, timestamp),
+            _tlv(4, total),
+            _tlv(5, vat_amount),
+        ])
+        return base64.b64encode(raw).decode('ascii')
+
+    def sol_amount_in_words_en(self):
+        self.ensure_one()
+        return amount_to_words_en(abs(self.amount_total))
+
+    def sol_amount_in_words_ar(self):
+        self.ensure_one()
+        return amount_to_words_ar(abs(self.amount_total))
+
+    def sol_vat_in_words_en(self):
+        self.ensure_one()
+        return amount_to_words_en(abs(self.amount_tax))
+
+    def sol_vat_in_words_ar(self):
+        self.ensure_one()
+        return amount_to_words_ar(abs(self.amount_tax))
+
+    def sol_ar_num(self, value):
+        return to_arabic_digits('{:,.2f}'.format(value or 0))
+
+    def sol_ar_digits(self, value):
+        return to_arabic_digits(value or '')
