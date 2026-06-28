@@ -126,7 +126,7 @@
                             <td>
                                 <div t-esc="line.name"/>
                             </td>
-                            <td class="siv-center" t-esc="'%.0f %%' % (line.tax_ids[0].amount if line.tax_ids else 0)"/>
+                            <td class="siv-center" t-esc="o.sol_vat_percent_label(line)"/>
                             <td style="text-align:right;" t-esc="'%.2f' % line.price_subtotal"/>
                         </tr>
                     </t>
@@ -173,7 +173,7 @@
                         <div>IBAN : <t t-esc="bank.acc_number if bank else ''"/></div>
                     </td>
                     <td style="width:40%;" class="siv-center">
-                        <img t-att-src="'/report/barcode/?type=QR&amp;value=%s&amp;width=120&amp;height=120' % o.sol_zatca_qr()" style="height:90px;"/>
+                        <img t-att-src="o.sol_zatca_qr_url()" style="height:90px;"/>
                     </td>
                 </tr>
             </table>

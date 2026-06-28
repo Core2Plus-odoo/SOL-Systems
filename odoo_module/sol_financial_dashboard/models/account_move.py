@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import base64
+from urllib.parse import quote
 
 from odoo import fields, models
 
@@ -165,6 +166,15 @@ class AccountMove(models.Model):
             _tlv(5, vat_amount),
         ])
         return base64.b64encode(raw).decode('ascii')
+
+    def sol_zatca_qr_url(self):
+        self.ensure_one()
+        qr_value = quote(self.sol_zatca_qr(), safe='')
+        return '/report/barcode/?type=QR&value=%s&width=120&height=120' % qr_value
+
+    def sol_vat_percent_label(self, line):
+        rate = line.tax_ids[0].amount if line.tax_ids else 0
+        return '%.0f %%' % rate
 
     def sol_amount_in_words_en(self):
         self.ensure_one()
