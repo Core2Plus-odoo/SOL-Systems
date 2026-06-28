@@ -41,7 +41,7 @@
             <style>
                 .siv-table { width:100%; border-collapse:collapse; }
                 .siv-table td, .siv-table th { border:1px solid #333; padding:4px 6px; vertical-align:top; }
-                .siv-ar { direction:rtl; text-align:right; font-family:'Noto Naskh Arabic','Arial',sans-serif; }
+                .siv-ar { direction:rtl; text-align:right; unicode-bidi:embed; font-family:sans-serif; }
                 .siv-en { direction:ltr; text-align:left; }
                 .siv-center { text-align:center; }
                 .siv-title { text-align:center; font-weight:bold; font-size:14px; padding:6px 0; }
