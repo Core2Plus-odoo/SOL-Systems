@@ -27,10 +27,15 @@
     </record>
 
     <template id="report_sol_tax_invoice">
-        <t t-call="web.html_container">
-            <t t-foreach="docs" t-as="o">
-                <t t-call="sol_financial_dashboard.report_sol_tax_invoice_document"/>
-            </t>
+        <t t-foreach="docs" t-as="o">
+            <html>
+                <head>
+                    <meta charset="utf-8"/>
+                </head>
+                <body>
+                    <t t-call="sol_financial_dashboard.report_sol_tax_invoice_document"/>
+                </body>
+            </html>
         </t>
     </template>
 
