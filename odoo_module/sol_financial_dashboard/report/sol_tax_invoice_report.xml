@@ -29,7 +29,7 @@
     <template id="report_sol_tax_invoice">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <t t-call="sol_financial_dashboard.report_sol_tax_invoice_document" t-lang="o.partner_id.lang"/>
+                <t t-call="sol_financial_dashboard.report_sol_tax_invoice_document"/>
             </t>
         </t>
     </template>
@@ -65,18 +65,18 @@
                     <td class="siv-ar" style="width:38%; border:none;">
                         <div class="siv-bold" t-esc="company.partner_id.arabic_name or company.name"/>
                         <div t-esc="company.partner_id.arabic_address or ''" style="white-space:pre-line;"/>
-                        <div>رقم ضريبة القيمة المضافة: <t t-esc="o.sol_ar_digits(company.vat)"/></div>
-                        <div>البريد الإلكتروني: <t t-esc="company.email"/></div>
+                        <div><t t-esc="'رقم ضريبة القيمة المضافة: '"/><t t-esc="o.sol_ar_digits(company.vat)"/></div>
+                        <div><t t-esc="'البريد الإلكتروني: '"/><t t-esc="company.email"/></div>
                     </td>
                 </tr>
             </table>
 
-            <div class="siv-title">Tax Invoice <span style="float:right;" class="siv-ar">فاتورة ضريبية</span></div>
+            <div class="siv-title">Tax Invoice <span style="float:right;" class="siv-ar" t-esc="'فاتورة ضريبية'"/></div>
 
             <table class="siv-table" style="margin-bottom:6px;">
                 <tr>
                     <td style="width:50%;">
-                        <div class="siv-bold">Buyer / المشتري</div>
+                        <div class="siv-bold"><t t-esc="'Buyer / المشتري'"/></div>
                         <div t-esc="partner.name"/>
                         <div t-esc="partner.arabic_name or ''" class="siv-ar"/>
                         <div t-esc="(partner.street or '') + (', ' + partner.street2 if partner.street2 else '')"/>
@@ -111,10 +111,10 @@
             <table class="siv-table">
                 <thead>
                     <tr>
-                        <th style="width:6%;">Sl No<br/><span class="siv-ar">ر.م</span></th>
-                        <th>Particulars<br/><span class="siv-ar">تفاصيل</span></th>
-                        <th style="width:12%;">VAT %<br/><span class="siv-ar">ضريبة القيمة المضافة %</span></th>
-                        <th style="width:18%;">Amount<br/><span class="siv-ar">القيمة</span></th>
+                        <th style="width:6%;">Sl No<br/><span class="siv-ar" t-esc="'ر.م'"/></th>
+                        <th>Particulars<br/><span class="siv-ar" t-esc="'تفاصيل'"/></th>
+                        <th style="width:12%;">VAT %<br/><span class="siv-ar" t-esc="'ضريبة القيمة المضافة %'"/></th>
+                        <th style="width:18%;">Amount<br/><span class="siv-ar" t-esc="'القيمة'"/></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -182,11 +182,11 @@
                 <tr>
                     <td style="width:50%;">
                         Customer's Seal and Signature<br/>
-                        <span class="siv-ar">ختم العميل وتوقيعه</span>
+                        <span class="siv-ar" t-esc="'ختم العميل وتوقيعه'"/>
                     </td>
                     <td style="width:50%;" class="siv-ar">
                         for <t t-esc="company.name"/><br/>
-                        <span>المفوض بالتوقيع</span>
+                        <span t-esc="'المفوض بالتوقيع'"/>
                     </td>
                 </tr>
             </table>
