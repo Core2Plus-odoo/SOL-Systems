@@ -33,7 +33,9 @@
                     <meta charset="utf-8"/>
                 </head>
                 <body>
-                    <t t-call="sol_financial_dashboard.report_sol_tax_invoice_document"/>
+                    <main>
+                        <t t-call="sol_financial_dashboard.report_sol_tax_invoice_document"/>
+                    </main>
                 </body>
             </html>
         </t>
