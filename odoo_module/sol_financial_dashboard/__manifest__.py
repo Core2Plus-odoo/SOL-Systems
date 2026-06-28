@@ -17,6 +17,10 @@ live data straight from Odoo's accounting models:
 * Customer invoices / credit notes
 * Data-quality flags (draft documents, refs tagged WARNING/REVIEW)
 
+Also adds a bilingual (English/Arabic) ZATCA-style Tax Invoice PDF
+report, printable from any posted customer invoice, with a ZATCA
+Phase-1 QR code.
+
 No external data files or services are required — everything is
 computed on the fly from account.move / account.move.line /
 account.bank.statement.line.
@@ -26,6 +30,8 @@ account.bank.statement.line.
     'depends': ['account'],
     'data': [
         'views/dashboard_menu.xml',
+        'views/res_partner_views.xml',
+        'report/sol_tax_invoice_report.xml',
     ],
     'installable': True,
     'application': False,
