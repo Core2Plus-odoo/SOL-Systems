@@ -181,7 +181,7 @@
                         <t t-set="bank" t-value="company.bank_ids[:1]"/>
                         <div class="en">Bank: <t t-esc="bank.bank_id.name if bank else 'N/A'"/></div>
                         <div class="en" style="font-size:9px;">Acc No: <t t-esc="bank.acc_number if bank else 'N/A'"/></div>
-                        <div class="en" style="font-size:9px;">IBAN: <t t-esc="(bank.acc_iban or bank.acc_number) if bank else 'N/A'"/></div>
+                        <div class="en" style="font-size:9px;">IBAN: <t t-esc="bank.acc_number if bank else 'N/A'"/></div>
                     </td>
                     <td style="width:40%; text-align:center;" class="noborder">
                         <img t-att-src="o.sol_zatca_qr_url()" style="height:80px; width:80px;"/>
