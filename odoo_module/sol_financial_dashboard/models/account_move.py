@@ -199,14 +199,19 @@ class AccountMove(models.Model):
     def sol_ar_digits(self, value):
         return to_arabic_digits(value or '')
 
-    def sol_ar_to_entities(self, text):
-        """Convert Arabic text to HTML numeric character references to work around wkhtmltopdf charset issues."""
+    def sol_ar_text(self, text):
+        """Fix Arabic text for wkhtmltopdf's cp1252 mis-interpretation of UTF-8.
+
+        wkhtmltopdf reads files as cp1252, not UTF-8. When it encounters UTF-8-encoded
+        Arabic bytes, it misinterprets them as cp1252, creating mojibake.
+
+        Solution: encode as UTF-8 bytes, then decode as cp1252. This creates
+        "mojibake" in Python, but when wkhtmltopdf reads it as cp1252, it becomes
+        valid UTF-8 again, which renders correctly.
+        """
         if not text:
             return Markup('')
-        result = []
-        for char in text:
-            if ord(char) >= 0x0600 and ord(char) <= 0x06FF:  # Arabic Unicode range
-                result.append('&#x{:04X};'.format(ord(char)))
-            else:
-                result.append(char)
-        return Markup(''.join(result))
+        try:
+            return Markup(text.encode('utf-8').decode('cp1252', errors='replace'))
+        except (UnicodeDecodeError, UnicodeEncodeError):
+            return Markup(text)
