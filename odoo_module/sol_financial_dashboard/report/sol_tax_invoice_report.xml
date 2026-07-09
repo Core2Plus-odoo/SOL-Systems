@@ -78,25 +78,25 @@
                         <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height:50px; max-width:200px;"/>
                     </td>
                     <td style="width:30%; border:none; font-size:9px;" class="ar" dir="rtl">
-                        <div class="bd" style="font-size:12px; direction:rtl; unicode-bidi:embed;" t-esc="company.partner_id.arabic_name or company.name"/>
-                        <div style="white-space:pre-line; font-size:9px; direction:rtl; unicode-bidi:embed;" t-esc="company.partner_id.arabic_address or ''"/>
-                        <div style="font-size:9px;" t-esc="'ضريبة: ' + o.sol_ar_digits(company.vat)"/>
+                        <div class="bd" style="font-size:12px; direction:rtl; unicode-bidi:embed;" t-esc="o.sol_ar_company_name()"/>
+                        <div style="white-space:pre-line; font-size:9px; direction:rtl; unicode-bidi:embed;" t-esc="o.sol_ar_company_address()"/>
+                        <div style="font-size:9px;" t-esc="o.sol_ar_label('vat') + ': ' + o.sol_ar_digits(company.vat)"/>
                         <div style="font-size:9px;"><t t-esc="company.email"/></div>
                     </td>
                 </tr>
             </table>
 
             <!-- Invoice Title -->
-            <div class="invoice-title">Tax Invoice <span style="float:right;" class="ar" t-esc="'فاتورة ضريبية'"/></div>
+            <div class="invoice-title">Tax Invoice <span style="float:right;" class="ar" t-esc="o.sol_ar_label('invoice_title')"/></div>
 
             <!-- Invoice Details -->
             <table class="tbl" style="margin-bottom:6px;">
                 <tr>
                     <td style="width:50%;" class="noborder">
                         <div class="bd en">Buyer</div>
-                        <div class="ar bd" t-esc="'المشتري'"/>
+                        <div class="ar bd" t-esc="o.sol_ar_label('buyer')"/>
                         <div class="en bd" style="margin-top:4px;" t-esc="partner.name"/>
-                        <div class="ar" style="margin-top:4px;" t-esc="partner.arabic_name or ''"/>
+                        <div class="ar" style="margin-top:4px;" t-esc="o.sol_ar_partner_name()"/>
                         <div class="en" style="font-size:9px;" t-esc="(partner.street or '')"/>
                         <div class="en" style="font-size:9px;"><t t-esc="partner.zip or ''"/> <t t-esc="partner.city or ''"/></div>
                         <div class="en" style="font-size:9px;">VAT: <t t-esc="partner.vat or 'N/A'"/></div>
@@ -125,14 +125,14 @@
             </table>
 
             <!-- Line Items -->
-            <div class="section-title en">Items <span class="ar" t-esc="'البنود'"/></div>
+            <div class="section-title en">Items <span class="ar" t-esc="o.sol_ar_label('items')"/></div>
             <table class="tbl" style="margin-bottom:6px;">
                 <thead>
                     <tr style="background:#f5f5f5;">
-                        <th style="width:8%;" class="al-c en">No.<br/><span class="ar" t-esc="'ر.م'"/></th>
-                        <th class="en">Description<br/><span class="ar" t-esc="'الوصف'"/></th>
+                        <th style="width:8%;" class="al-c en">No.<br/><span class="ar" t-esc="o.sol_ar_label('no')"/></th>
+                        <th class="en">Description<br/><span class="ar" t-esc="o.sol_ar_label('description')"/></th>
                         <th style="width:12%;" class="al-c en">VAT %<br/><span class="ar" t-esc="'%'"/></th>
-                        <th style="width:18%;" class="al-r en">Amount<br/><span class="ar" t-esc="'القيمة'"/></th>
+                        <th style="width:18%;" class="al-r en">Amount<br/><span class="ar" t-esc="o.sol_ar_label('amount')"/></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -143,38 +143,38 @@
                             <td class="al-c" t-esc="sl"/>
                             <td t-esc="line.name"/>
                             <td class="al-c" t-esc="o.sol_vat_percent_label(line)"/>
-                            <td class="amt" t-esc="'%.2f' % line.price_subtotal"/>
+                            <td class="amt" t-esc="o.sol_format_amount(line.price_subtotal)"/>
                         </tr>
                     </t>
                 </tbody>
             </table>
 
             <!-- Totals Section -->
-            <div class="section-title en">Summary <span class="ar" t-esc="'الملخص'"/></div>
+            <div class="section-title en">Summary <span class="ar" t-esc="o.sol_ar_label('summary')"/></div>
             <table class="tbl" style="margin-bottom:6px;">
                 <tr>
                     <td style="width:60%; border-right:1px solid #000;" class="noborder bd en">Amount in Words</td>
                     <td style="width:40%;" class="noborder bd al-r en">Taxable Value</td>
-                    <td style="width:40%; text-align:right;" class="noborder amt" t-esc="'%.2f' % o.amount_untaxed"/>
+                    <td style="width:40%; text-align:right;" class="noborder amt" t-esc="o.sol_format_amount(o.amount_untaxed)"/>
                 </tr>
                 <tr>
                     <td style="width:60%; border-right:1px solid #000;" class="noborder en">
                         <div style="font-size:9px;" t-esc="o.sol_amount_in_words_en()"/>
                     </td>
                     <td style="width:40%;" class="noborder bd al-r en">VAT (15%)</td>
-                    <td style="width:40%; text-align:right;" class="noborder amt" t-esc="'%.2f' % o.amount_tax"/>
+                    <td style="width:40%; text-align:right;" class="noborder amt" t-esc="o.sol_format_amount(o.amount_tax)"/>
                 </tr>
                 <tr>
                     <td style="width:60%; border-right:1px solid #000; font-size:9px;" class="noborder ar">
                         <div t-esc="o.sol_amount_in_words_ar()"/>
                     </td>
                     <td style="width:40%;" class="noborder bd al-r en">Total</td>
-                    <td style="width:40%; text-align:right;" class="noborder bd amt" t-esc="'%.2f' % o.amount_total"/>
+                    <td style="width:40%; text-align:right;" class="noborder bd amt" t-esc="o.sol_format_amount(o.amount_total)"/>
                 </tr>
             </table>
 
             <!-- Bank Details and QR -->
-            <div class="section-title en">Bank Details <span class="ar" t-esc="'تفاصيل البنك'"/></div>
+            <div class="section-title en">Bank Details <span class="ar" t-esc="o.sol_ar_label('bank_details')"/></div>
             <table class="tbl">
                 <tr>
                     <td style="width:60%;" class="noborder">
@@ -194,11 +194,11 @@
                 <tr style="height:60px;">
                     <td style="width:50%; vertical-align:bottom;" class="al-c en">
                         Customer Seal &amp; Signature
-                        <div class="ar" t-esc="'ختم العميل وتوقيعه'"/>
+                        <div class="ar" t-esc="o.sol_ar_label('signature')"/>
                     </td>
                     <td style="width:50%; vertical-align:bottom;" class="al-c ar">
                         <t t-esc="company.name"/><br/>
-                        <span t-esc="'المفوض بالتوقيع'"/>
+                        <span t-esc="o.sol_ar_label('authorized')"/>
                     </td>
                 </tr>
             </table>

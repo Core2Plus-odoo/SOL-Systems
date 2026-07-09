@@ -198,4 +198,48 @@ class AccountMove(models.Model):
     def sol_ar_digits(self, value):
         return to_arabic_digits(value or '')
 
+    # Arabic Labels
+    def sol_ar_company_name(self):
+        """Return company name in Arabic (from field or default)."""
+        company = self.company_id
+        if company.partner_id and company.partner_id.arabic_name:
+            return company.partner_id.arabic_name
+        # Fallback: use English name if no Arabic name
+        return company.name or ''
+
+    def sol_ar_company_address(self):
+        """Return company address in Arabic (from field or default)."""
+        company = self.company_id
+        if company.partner_id and company.partner_id.arabic_address:
+            return company.partner_id.arabic_address
+        return ''
+
+    def sol_ar_partner_name(self):
+        """Return partner name in Arabic (from field or default)."""
+        partner = self.partner_id
+        if partner.arabic_name:
+            return partner.arabic_name
+        return partner.name or ''
+
+    def sol_ar_label(self, key):
+        """Return Arabic label for common invoice terms."""
+        labels = {
+            'buyer': 'المشتري',
+            'invoice_title': 'فاتورة ضريبية',
+            'items': 'البنود',
+            'no': 'ر.م',
+            'description': 'الوصف',
+            'vat': 'ضريبة',
+            'amount': 'القيمة',
+            'summary': 'الملخص',
+            'bank_details': 'تفاصيل البنك',
+            'signature': 'ختم العميل وتوقيعه',
+            'authorized': 'المفوض بالتوقيع',
+        }
+        return labels.get(key, '')
+
+    def sol_format_amount(self, value):
+        """Format amount with thousand separators."""
+        return '{:,.2f}'.format(value or 0)
+
 
