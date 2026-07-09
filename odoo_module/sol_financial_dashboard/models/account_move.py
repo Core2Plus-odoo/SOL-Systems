@@ -198,3 +198,20 @@ class AccountMove(models.Model):
     def sol_ar_digits(self, value):
         return to_arabic_digits(value or '')
 
+    def sol_format_amount(self, value):
+        """Format amount with thousand separators."""
+        return '{:,.2f}'.format(value or 0)
+
+    def sol_ar(self, text):
+        """Fix Arabic text for wkhtmltopdf's UTF-8 mis-interpretation.
+
+        wkhtmltopdf reads UTF-8 bytes as cp1252. Encode as UTF-8 bytes,
+        decode as cp1252 to pre-corrupt. wkhtmltopdf's mis-read reverses it.
+        """
+        if not text:
+            return ''
+        try:
+            return text.encode('utf-8').decode('cp1252', errors='replace')
+        except (UnicodeDecodeError, UnicodeEncodeError):
+            return text
+
