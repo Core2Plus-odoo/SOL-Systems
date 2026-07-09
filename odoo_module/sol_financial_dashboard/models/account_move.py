@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import base64
 from urllib.parse import quote
+from markupsafe import Markup
 
 from odoo import fields, models
 
@@ -201,11 +202,11 @@ class AccountMove(models.Model):
     def sol_ar_to_entities(self, text):
         """Convert Arabic text to HTML numeric character references to work around wkhtmltopdf charset issues."""
         if not text:
-            return ''
+            return Markup('')
         result = []
         for char in text:
             if ord(char) >= 0x0600 and ord(char) <= 0x06FF:  # Arabic Unicode range
                 result.append('&#x{:04X};'.format(ord(char)))
             else:
                 result.append(char)
-        return ''.join(result)
+        return Markup(''.join(result))
