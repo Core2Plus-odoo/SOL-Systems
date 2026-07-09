@@ -143,7 +143,7 @@
                             <td class="al-c" t-esc="sl"/>
                             <td t-esc="line.name"/>
                             <td class="al-c" t-esc="o.sol_vat_percent_label(line)"/>
-                            <td class="amt" t-esc="formatLang(line.price_subtotal)"/>
+                            <td class="amt" t-esc="'%.2f' % line.price_subtotal"/>
                         </tr>
                     </t>
                 </tbody>
@@ -155,21 +155,21 @@
                 <tr>
                     <td style="width:60%; border-right:1px solid #000;" class="noborder bd en">Amount in Words</td>
                     <td style="width:40%;" class="noborder bd al-r en">Taxable Value</td>
-                    <td style="width:40%; text-align:right;" class="noborder amt" t-esc="formatLang(o.amount_untaxed)"/>
+                    <td style="width:40%; text-align:right;" class="noborder amt" t-esc="'%.2f' % o.amount_untaxed"/>
                 </tr>
                 <tr>
                     <td style="width:60%; border-right:1px solid #000;" class="noborder en">
                         <div style="font-size:9px;" t-esc="o.sol_amount_in_words_en()"/>
                     </td>
                     <td style="width:40%;" class="noborder bd al-r en">VAT (15%)</td>
-                    <td style="width:40%; text-align:right;" class="noborder amt" t-esc="formatLang(o.amount_tax)"/>
+                    <td style="width:40%; text-align:right;" class="noborder amt" t-esc="'%.2f' % o.amount_tax"/>
                 </tr>
                 <tr>
                     <td style="width:60%; border-right:1px solid #000; font-size:9px;" class="noborder ar">
                         <div t-esc="o.sol_amount_in_words_ar()"/>
                     </td>
                     <td style="width:40%;" class="noborder bd al-r en">Total</td>
-                    <td style="width:40%; text-align:right;" class="noborder bd amt" t-esc="formatLang(o.amount_total)"/>
+                    <td style="width:40%; text-align:right;" class="noborder bd amt" t-esc="'%.2f' % o.amount_total"/>
                 </tr>
             </table>
 
