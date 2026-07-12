@@ -2,6 +2,8 @@
 import base64
 from urllib.parse import quote
 
+from markupsafe import Markup
+
 from odoo import fields, models
 
 _EN_ONES = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine']
@@ -136,12 +138,28 @@ def to_arabic_digits(value):
 def to_ncr(text):
     """Convert text to HTML Numeric Character References (encoding-agnostic).
 
-    This bypasses wkhtmltopdf's UTF-8 mis-detection by using numeric entities
-    (&#DECIMAL;) which are rendering-engine-independent.
+    Returns a markupsafe.Markup object so QWeb's ``t-out`` emits the entities
+    unescaped. Every non-ASCII character becomes ``&#DECIMAL;`` -- pure ASCII
+    that survives wkhtmltopdf's cp1252 mis-detection of the HTML file and is
+    then resolved back to the correct Unicode glyph by the HTML parser. ASCII
+    HTML-special characters (& < >) are escaped so names like "AT&T" stay safe.
     """
     if not text:
-        return ''
-    return ''.join(f'&#{ord(ch)};' if ord(ch) > 127 else ch for ch in text)
+        return Markup('')
+    out = []
+    for ch in str(text):
+        codepoint = ord(ch)
+        if codepoint > 127:
+            out.append('&#%d;' % codepoint)
+        elif ch == '&':
+            out.append('&amp;')
+        elif ch == '<':
+            out.append('&lt;')
+        elif ch == '>':
+            out.append('&gt;')
+        else:
+            out.append(ch)
+    return Markup(''.join(out))
 
 
 def _tlv(tag, value):
@@ -278,5 +296,11 @@ class AccountMove(models.Model):
     def sol_amount_in_words_ar_ncr(self):
         """Return Arabic amount-in-words in NCR format."""
         return to_ncr(self.sol_amount_in_words_ar())
+
+    def sol_ar_vat_line_ncr(self):
+        """Return the company's VAT number line ('ضريبة: <arabic digits>') in NCR."""
+        label = self.sol_ar_label('vat')
+        digits = to_arabic_digits(self.company_id.vat or '')
+        return to_ncr('%s: %s' % (label, digits))
 
 

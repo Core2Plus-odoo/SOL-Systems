@@ -41,6 +41,15 @@
         </t>
     </template>
 
+    <!--
+        All Arabic text is emitted through NCR (Numeric Character Reference)
+        helper methods (o.sol_*_ncr()) rendered with t-out. Those methods
+        return markupsafe.Markup strings of pure-ASCII "&#DECIMAL;" entities,
+        which survive wkhtmltopdf 0.12.6.1's cp1252 mis-detection of the HTML
+        file and are resolved back to the correct Arabic glyphs by the parser.
+        Do NOT switch these to t-esc (it would escape the &) or t-raw (removed
+        in Odoo 15+).
+    -->
     <template id="report_sol_tax_invoice_document">
         <t t-set="company" t-value="o.company_id"/>
         <t t-set="partner" t-value="o.partner_id"/>
@@ -78,25 +87,25 @@
                         <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height:50px; max-width:200px;"/>
                     </td>
                     <td style="width:30%; border:none; font-size:9px;" class="ar" dir="rtl">
-                        <div class="bd" style="font-size:12px; direction:rtl; unicode-bidi:embed;" t-esc="o.sol_ar_company_name()"/>
-                        <div style="white-space:pre-line; font-size:9px; direction:rtl; unicode-bidi:embed;" t-esc="o.sol_ar_company_address()"/>
-                        <div style="font-size:9px;" t-esc="o.sol_ar_label('vat') + ': ' + o.sol_ar_digits(company.vat)"/>
+                        <div class="bd" style="font-size:12px; direction:rtl; unicode-bidi:embed;" t-out="o.sol_ar_company_name_ncr()"/>
+                        <div style="white-space:pre-line; font-size:9px; direction:rtl; unicode-bidi:embed;" t-out="o.sol_ar_company_address_ncr()"/>
+                        <div style="font-size:9px;" t-out="o.sol_ar_vat_line_ncr()"/>
                         <div style="font-size:9px;"><t t-esc="company.email"/></div>
                     </td>
                 </tr>
             </table>
 
             <!-- Invoice Title -->
-            <div class="invoice-title">Tax Invoice <span style="float:right;" class="ar" t-esc="o.sol_ar_label('invoice_title')"/></div>
+            <div class="invoice-title">Tax Invoice <span style="float:right;" class="ar" t-out="o.sol_ar_label_ncr('invoice_title')"/></div>
 
             <!-- Invoice Details -->
             <table class="tbl" style="margin-bottom:6px;">
                 <tr>
                     <td style="width:50%;" class="noborder">
                         <div class="bd en">Buyer</div>
-                        <div class="ar bd" t-esc="o.sol_ar_label('buyer')"/>
+                        <div class="ar bd" t-out="o.sol_ar_label_ncr('buyer')"/>
                         <div class="en bd" style="margin-top:4px;" t-esc="partner.name"/>
-                        <div class="ar" style="margin-top:4px;" t-esc="o.sol_ar_partner_name()"/>
+                        <div class="ar" style="margin-top:4px;" t-out="o.sol_ar_partner_name_ncr()"/>
                         <div class="en" style="font-size:9px;" t-esc="(partner.street or '')"/>
                         <div class="en" style="font-size:9px;"><t t-esc="partner.zip or ''"/> <t t-esc="partner.city or ''"/></div>
                         <div class="en" style="font-size:9px;">VAT: <t t-esc="partner.vat or 'N/A'"/></div>
@@ -125,14 +134,14 @@
             </table>
 
             <!-- Line Items -->
-            <div class="section-title en">Items <span class="ar" t-esc="o.sol_ar_label('items')"/></div>
+            <div class="section-title en">Items <span class="ar" t-out="o.sol_ar_label_ncr('items')"/></div>
             <table class="tbl" style="margin-bottom:6px;">
                 <thead>
                     <tr style="background:#f5f5f5;">
-                        <th style="width:8%;" class="al-c en">No.<br/><span class="ar" t-esc="o.sol_ar_label('no')"/></th>
-                        <th class="en">Description<br/><span class="ar" t-esc="o.sol_ar_label('description')"/></th>
-                        <th style="width:12%;" class="al-c en">VAT %<br/><span class="ar" t-esc="'%'"/></th>
-                        <th style="width:18%;" class="al-r en">Amount<br/><span class="ar" t-esc="o.sol_ar_label('amount')"/></th>
+                        <th style="width:8%;" class="al-c en">No.<br/><span class="ar" t-out="o.sol_ar_label_ncr('no')"/></th>
+                        <th class="en">Description<br/><span class="ar" t-out="o.sol_ar_label_ncr('description')"/></th>
+                        <th style="width:12%;" class="al-c en">VAT %<br/><span class="ar">%</span></th>
+                        <th style="width:18%;" class="al-r en">Amount<br/><span class="ar" t-out="o.sol_ar_label_ncr('amount')"/></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -150,7 +159,7 @@
             </table>
 
             <!-- Totals Section -->
-            <div class="section-title en">Summary <span class="ar" t-esc="o.sol_ar_label('summary')"/></div>
+            <div class="section-title en">Summary <span class="ar" t-out="o.sol_ar_label_ncr('summary')"/></div>
             <table class="tbl" style="margin-bottom:6px;">
                 <tr>
                     <td style="width:60%; border-right:1px solid #000;" class="noborder bd en">Amount in Words</td>
@@ -166,7 +175,7 @@
                 </tr>
                 <tr>
                     <td style="width:60%; border-right:1px solid #000; font-size:9px;" class="noborder ar">
-                        <div t-esc="o.sol_amount_in_words_ar()"/>
+                        <div t-out="o.sol_amount_in_words_ar_ncr()"/>
                     </td>
                     <td style="width:40%;" class="noborder bd al-r en">Total</td>
                     <td style="width:40%; text-align:right;" class="noborder bd amt" t-esc="o.sol_format_amount(o.amount_total)"/>
@@ -174,7 +183,7 @@
             </table>
 
             <!-- Bank Details and QR -->
-            <div class="section-title en">Bank Details <span class="ar" t-esc="o.sol_ar_label('bank_details')"/></div>
+            <div class="section-title en">Bank Details <span class="ar" t-out="o.sol_ar_label_ncr('bank_details')"/></div>
             <table class="tbl">
                 <tr>
                     <td style="width:60%;" class="noborder">
@@ -194,207 +203,11 @@
                 <tr style="height:60px;">
                     <td style="width:50%; vertical-align:bottom;" class="al-c en">
                         Customer Seal &amp; Signature
-                        <div class="ar" t-esc="o.sol_ar_label('signature')"/>
+                        <div class="ar" t-out="o.sol_ar_label_ncr('signature')"/>
                     </td>
                     <td style="width:50%; vertical-align:bottom;" class="al-c ar">
                         <t t-esc="company.name"/><br/>
-                        <span t-esc="o.sol_ar_label('authorized')"/>
-                    </td>
-                </tr>
-            </table>
-
-            <div class="al-c" style="margin-top:8px; font-size:9px; color:#666;">This is a Computer Generated Invoice</div>
-        </div>
-    </template>
-
-    <!-- Alternative report variant using NCR (Numeric Character References) for Arabic
-         to work around wkhtmltopdf's UTF-8 charset mis-detection bug.
-         Use this if the standard report renders Arabic as mojibake. -->
-    <record id="action_report_sol_tax_invoice_ncr" model="ir.actions.report">
-        <field name="name">Bilingual Tax Invoice (NCR)</field>
-        <field name="model">account.move</field>
-        <field name="report_type">qweb-pdf</field>
-        <field name="report_name">sol_financial_dashboard.report_sol_tax_invoice_ncr</field>
-        <field name="report_file">sol_financial_dashboard.report_sol_tax_invoice_ncr</field>
-        <field name="print_report_name">'Tax Invoice - %s' % (object.name or '')</field>
-        <field name="paperformat_id" ref="paperformat_sol_tax_invoice"/>
-        <field name="binding_model_id" ref="account.model_account_move"/>
-        <field name="binding_type">report</field>
-    </record>
-
-    <template id="report_sol_tax_invoice_ncr">
-        <t t-foreach="docs" t-as="o">
-            <html>
-                <head>
-                    <meta charset="utf-8"/>
-                </head>
-                <body>
-                    <main>
-                        <t t-call="sol_financial_dashboard.report_sol_tax_invoice_document_ncr"/>
-                    </main>
-                </body>
-            </html>
-        </t>
-    </template>
-
-    <template id="report_sol_tax_invoice_document_ncr">
-        <t t-set="company" t-value="o.company_id"/>
-        <t t-set="partner" t-value="o.partner_id"/>
-        <div class="page" style="font-family:'Arabic Typesetting','Courier New',Tahoma,Arial,sans-serif; font-size:10px; line-height:1.4; color:#000;">
-            <style>
-                .tbl { width:100%; border-collapse:collapse; }
-                .tbl td, .tbl th { border:1px solid #000; padding:6px; vertical-align:top; }
-                .ar { direction:rtl; text-align:right; unicode-bidi:embed; }
-                .en { direction:ltr; text-align:left; }
-                .al-c { text-align:center; }
-                .al-r { text-align:right; }
-                .bd { font-weight:bold; }
-                .noborder { border:none !important; }
-                .nopad { padding:2px !important; }
-                .mtop { margin-top:8px; }
-                .header-section { margin-bottom:10px; }
-                .invoice-title { font-size:16px; font-weight:bold; text-align:center; margin:8px 0; }
-                .section-title { font-weight:bold; font-size:11px; margin-top:6px; margin-bottom:2px; border-bottom:1px solid #000; padding:4px 0; }
-                .amt { text-align:right; }
-            </style>
-
-            <!-- Header with Company Info -->
-            <table class="tbl noborder" style="margin-bottom:8px;">
-                <tr>
-                    <td style="width:30%; border:none;" class="en">
-                        <div class="bd" style="font-size:12px;" t-esc="company.name"/>
-                        <div style="font-size:9px;" t-esc="(company.street or '')"/>
-                        <div style="font-size:9px;" t-esc="(company.street2 or '')"/>
-                        <div style="font-size:9px;"><t t-esc="company.zip or ''"/> <t t-esc="company.city or ''"/></div>
-                        <div style="font-size:9px;" t-esc="company.country_id.name or ''"/>
-                        <div style="font-size:9px;">VAT: <t t-esc="company.vat"/></div>
-                        <div style="font-size:9px;"><t t-esc="company.email"/></div>
-                    </td>
-                    <td style="width:40%; border:none; text-align:center;">
-                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height:50px; max-width:200px;"/>
-                    </td>
-                    <td style="width:30%; border:none; font-size:9px;" class="ar" dir="rtl">
-                        <div class="bd" style="font-size:12px; direction:rtl; unicode-bidi:embed;" t-raw="o.sol_ar_company_name_ncr()"/>
-                        <div style="white-space:pre-line; font-size:9px; direction:rtl; unicode-bidi:embed;" t-raw="o.sol_ar_company_address_ncr()"/>
-                        <div style="font-size:9px;" t-esc="o.sol_ar_label_ncr('vat') + ': ' + o.sol_ar_digits(company.vat)"/>
-                        <div style="font-size:9px;"><t t-esc="company.email"/></div>
-                    </td>
-                </tr>
-            </table>
-
-            <!-- Invoice Title -->
-            <div class="invoice-title">Tax Invoice <span style="float:right;" class="ar" t-raw="o.sol_ar_label_ncr('invoice_title')"/></div>
-
-            <!-- Invoice Details -->
-            <table class="tbl" style="margin-bottom:6px;">
-                <tr>
-                    <td style="width:50%;" class="noborder">
-                        <div class="bd en">Buyer</div>
-                        <div class="ar bd" t-raw="o.sol_ar_label_ncr('buyer')"/>
-                        <div class="en bd" style="margin-top:4px;" t-esc="partner.name"/>
-                        <div class="ar" style="margin-top:4px;" t-raw="o.sol_ar_partner_name_ncr()"/>
-                        <div class="en" style="font-size:9px;" t-esc="(partner.street or '')"/>
-                        <div class="en" style="font-size:9px;"><t t-esc="partner.zip or ''"/> <t t-esc="partner.city or ''"/></div>
-                        <div class="en" style="font-size:9px;">VAT: <t t-esc="partner.vat or 'N/A'"/></div>
-                    </td>
-                    <td style="width:50%; border:none;">
-                        <table style="width:100%;" class="noborder">
-                            <tr>
-                                <td class="noborder en bd" style="padding:2px;">Invoice No.</td>
-                                <td class="noborder en" style="padding:2px; text-align:right;" t-esc="o.name"/>
-                            </tr>
-                            <tr>
-                                <td class="noborder en bd" style="padding:2px;">e-Inv No.</td>
-                                <td class="noborder en" style="padding:2px; text-align:right;" t-esc="o.sol_einvoice_number()"/>
-                            </tr>
-                            <tr>
-                                <td class="noborder en bd" style="padding:2px;">Date</td>
-                                <td class="noborder en" style="padding:2px; text-align:right;" t-esc="o.invoice_date"/>
-                            </tr>
-                            <tr>
-                                <td class="noborder en bd" style="padding:2px;">Ref.</td>
-                                <td class="noborder en" style="padding:2px; text-align:right;" t-esc="o.ref or 'N/A'"/>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-
-            <!-- Line Items -->
-            <div class="section-title en">Items <span class="ar" t-raw="o.sol_ar_label_ncr('items')"/></div>
-            <table class="tbl" style="margin-bottom:6px;">
-                <thead>
-                    <tr style="background:#f5f5f5;">
-                        <th style="width:8%;" class="al-c en">No.<br/><span class="ar" t-raw="o.sol_ar_label_ncr('no')"/></th>
-                        <th class="en">Description<br/><span class="ar" t-raw="o.sol_ar_label_ncr('description')"/></th>
-                        <th style="width:12%;" class="al-c en">VAT %<br/><span class="ar" t-esc="'%'"/></th>
-                        <th style="width:18%;" class="al-r en">Amount<br/><span class="ar" t-raw="o.sol_ar_label_ncr('amount')"/></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <t t-set="sl" t-value="0"/>
-                    <t t-foreach="o.invoice_line_ids.filtered(lambda l: l.display_type == 'product')" t-as="line">
-                        <t t-set="sl" t-value="sl + 1"/>
-                        <tr>
-                            <td class="al-c" t-esc="sl"/>
-                            <td t-esc="line.name"/>
-                            <td class="al-c" t-esc="o.sol_vat_percent_label(line)"/>
-                            <td class="amt" t-esc="o.sol_format_amount(line.price_subtotal)"/>
-                        </tr>
-                    </t>
-                </tbody>
-            </table>
-
-            <!-- Totals Section -->
-            <div class="section-title en">Summary <span class="ar" t-raw="o.sol_ar_label_ncr('summary')"/></div>
-            <table class="tbl" style="margin-bottom:6px;">
-                <tr>
-                    <td style="width:60%; border-right:1px solid #000;" class="noborder bd en">Amount in Words</td>
-                    <td style="width:40%;" class="noborder bd al-r en">Taxable Value</td>
-                    <td style="width:40%; text-align:right;" class="noborder amt" t-esc="o.sol_format_amount(o.amount_untaxed)"/>
-                </tr>
-                <tr>
-                    <td style="width:60%; border-right:1px solid #000;" class="noborder en">
-                        <div style="font-size:9px;" t-esc="o.sol_amount_in_words_en()"/>
-                    </td>
-                    <td style="width:40%;" class="noborder bd al-r en">VAT (15%)</td>
-                    <td style="width:40%; text-align:right;" class="noborder amt" t-esc="o.sol_format_amount(o.amount_tax)"/>
-                </tr>
-                <tr>
-                    <td style="width:60%; border-right:1px solid #000; font-size:9px;" class="noborder ar">
-                        <div t-raw="o.sol_amount_in_words_ar_ncr()"/>
-                    </td>
-                    <td style="width:40%;" class="noborder bd al-r en">Total</td>
-                    <td style="width:40%; text-align:right;" class="noborder bd amt" t-esc="o.sol_format_amount(o.amount_total)"/>
-                </tr>
-            </table>
-
-            <!-- Bank Details and QR -->
-            <div class="section-title en">Bank Details <span class="ar" t-raw="o.sol_ar_label_ncr('bank_details')"/></div>
-            <table class="tbl">
-                <tr>
-                    <td style="width:60%;" class="noborder">
-                        <t t-set="bank" t-value="company.bank_ids[:1]"/>
-                        <div class="en">Bank: <t t-esc="bank.bank_id.name if bank else 'N/A'"/></div>
-                        <div class="en" style="font-size:9px;">Acc No: <t t-esc="bank.acc_number if bank else 'N/A'"/></div>
-                        <div class="en" style="font-size:9px;">IBAN: <t t-esc="bank.acc_number if bank else 'N/A'"/></div>
-                    </td>
-                    <td style="width:40%; text-align:center;" class="noborder">
-                        <img t-att-src="o.sol_zatca_qr_url()" style="height:80px; width:80px;"/>
-                    </td>
-                </tr>
-            </table>
-
-            <!-- Signature Block -->
-            <table class="tbl" style="margin-top:8px;">
-                <tr style="height:60px;">
-                    <td style="width:50%; vertical-align:bottom;" class="al-c en">
-                        Customer Seal &amp; Signature
-                        <div class="ar" t-raw="o.sol_ar_label_ncr('signature')"/>
-                    </td>
-                    <td style="width:50%; vertical-align:bottom;" class="al-c ar">
-                        <t t-esc="company.name"/><br/>
-                        <span t-raw="o.sol_ar_label_ncr('authorized')"/>
+                        <span t-out="o.sol_ar_label_ncr('authorized')"/>
                     </td>
                 </tr>
             </table>
