@@ -303,4 +303,30 @@ class AccountMove(models.Model):
         digits = to_arabic_digits(self.company_id.vat or '')
         return to_ncr('%s: %s' % (label, digits))
 
+    def sol_ar_country(self, country):
+        """Return an Arabic country name (mapped for common cases, else the name)."""
+        if not country:
+            return ''
+        mapping = {
+            'SA': 'السعودية',
+            'AE': 'الإمارات العربية المتحدة',
+            'KW': 'الكويت',
+            'BH': 'البحرين',
+            'QA': 'قطر',
+            'OM': 'عُمان',
+            'EG': 'مصر',
+            'JO': 'الأردن',
+        }
+        return mapping.get(country.code or '', country.name or '')
+
+    def sol_ar_partner_country(self):
+        """Arabic name of the customer's country."""
+        return self.sol_ar_country(self.partner_id.country_id)
+
+    def sol_vat_rate_label(self):
+        """Effective VAT rate for the invoice as a label, e.g. '15%'."""
+        if self.amount_untaxed:
+            return '%g%%' % round(self.amount_tax / self.amount_untaxed * 100.0, 2)
+        return '0%'
+
 
