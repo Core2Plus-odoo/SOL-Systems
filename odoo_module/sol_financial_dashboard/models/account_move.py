@@ -133,6 +133,17 @@ def to_arabic_digits(value):
     return ''.join(out)
 
 
+def to_ncr(text):
+    """Convert text to HTML Numeric Character References (encoding-agnostic).
+
+    This bypasses wkhtmltopdf's UTF-8 mis-detection by using numeric entities
+    (&#DECIMAL;) which are rendering-engine-independent.
+    """
+    if not text:
+        return ''
+    return ''.join(f'&#{ord(ch)};' if ord(ch) > 127 else ch for ch in text)
+
+
 def _tlv(tag, value):
     value_bytes = value.encode('utf-8')
     return bytes([tag]) + bytes([len(value_bytes)]) + value_bytes
@@ -241,5 +252,31 @@ class AccountMove(models.Model):
     def sol_format_amount(self, value):
         """Format amount with thousand separators."""
         return '{:,.2f}'.format(value or 0)
+
+    def sol_ar_label_ncr(self, key):
+        """Return Arabic label in HTML NCR format (encoding-agnostic).
+
+        This version uses Numeric Character References to bypass
+        wkhtmltopdf's UTF-8 mis-detection bug. Use this when standard
+        sol_ar_label() renders as mojibake in the PDF.
+        """
+        label = self.sol_ar_label(key)
+        return to_ncr(label)
+
+    def sol_ar_company_name_ncr(self):
+        """Return company Arabic name in NCR format."""
+        return to_ncr(self.sol_ar_company_name())
+
+    def sol_ar_company_address_ncr(self):
+        """Return company Arabic address in NCR format."""
+        return to_ncr(self.sol_ar_company_address())
+
+    def sol_ar_partner_name_ncr(self):
+        """Return partner Arabic name in NCR format."""
+        return to_ncr(self.sol_ar_partner_name())
+
+    def sol_amount_in_words_ar_ncr(self):
+        """Return Arabic amount-in-words in NCR format."""
+        return to_ncr(self.sol_amount_in_words_ar())
 
 
