@@ -201,6 +201,22 @@ class AccountMove(models.Model):
         qr_value = quote(self.sol_zatca_qr(), safe='')
         return '/report/barcode/?type=QR&value=%s&width=120&height=120' % qr_value
 
+    def sol_zatca_qr_datauri(self):
+        """Return the ZATCA QR as an embedded base64 PNG data URI.
+
+        Generating the image in Python and embedding it avoids relying on
+        wkhtmltopdf fetching /report/barcode over HTTP, which fails silently
+        in the PDF pipeline and leaves the QR blank.
+        """
+        self.ensure_one()
+        value = self.sol_zatca_qr()
+        try:
+            png = self.env['ir.actions.report'].barcode(
+                'QR', value, width=200, height=200)
+            return 'data:image/png;base64,%s' % base64.b64encode(png).decode('ascii')
+        except Exception:
+            return ''
+
     def sol_vat_percent_label(self, line):
         rate = line.tax_ids[0].amount if line.tax_ids else 0
         return '%.0f %%' % rate
