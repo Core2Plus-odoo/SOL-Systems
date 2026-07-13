@@ -27,10 +27,12 @@ account.bank.statement.line.
 """,
     'author': 'Core2Plus',
     'license': 'LGPL-3',
-    'depends': ['account'],
+    'depends': ['account', 'product'],
     'data': [
         'views/dashboard_menu.xml',
         'views/res_partner_views.xml',
+        'views/res_company_views.xml',
+        'views/product_views.xml',
         'report/sol_tax_invoice_report.xml',
     ],
     'installable': True,
