@@ -6,8 +6,9 @@
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='vat']" position="after">
-                <field name="arabic_name" placeholder="الاسم بالعربية"/>
-                <field name="arabic_address" placeholder="العنوان بالعربية"/>
+                <separator string="Arabic Details / بيانات عربية"/>
+                <field name="arabic_name" string="Arabic Name / الاسم بالعربية" placeholder="الاسم بالعربية"/>
+                <field name="arabic_address" string="Arabic Address / العنوان بالعربية" placeholder="العنوان بالعربية"/>
             </xpath>
         </field>
     </record>
