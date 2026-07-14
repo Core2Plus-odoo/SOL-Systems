@@ -245,20 +245,16 @@ class AccountMove(models.Model):
 
     # Arabic Labels
     def sol_ar_company_name(self):
-        """Return company name in Arabic (company field, then its partner, then EN)."""
+        """Return company name in Arabic (from field or default)."""
         company = self.company_id
-        if company.arabic_name:
-            return company.arabic_name
         if company.partner_id and company.partner_id.arabic_name:
             return company.partner_id.arabic_name
         # Fallback: use English name if no Arabic name
         return company.name or ''
 
     def sol_ar_company_address(self):
-        """Return company address in Arabic (company field, then its partner)."""
+        """Return company address in Arabic (from field or default)."""
         company = self.company_id
-        if company.arabic_address:
-            return company.arabic_address
         if company.partner_id and company.partner_id.arabic_address:
             return company.partner_id.arabic_address
         return ''
@@ -269,11 +265,6 @@ class AccountMove(models.Model):
         if partner.arabic_name:
             return partner.arabic_name
         return partner.name or ''
-
-    def sol_line_ar_name(self, line):
-        """Arabic product name for an invoice line (empty if none set)."""
-        product = line.product_id
-        return product.arabic_name if product and product.arabic_name else ''
 
     def sol_ar_label(self, key):
         """Return Arabic label for common invoice terms."""
