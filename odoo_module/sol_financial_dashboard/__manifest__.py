@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'SOL Financial Dashboard',
-    'version': '19.0.1.2.0',
+    'version': '19.0.1.3.0',
     'category': 'Accounting/Accounting',
     'summary': 'Live financial dashboard for SOL Systems (revenue, expenses, bank balances, vendor spend, data-quality flags)',
     'description': """
@@ -27,10 +27,11 @@ account.bank.statement.line.
 """,
     'author': 'Core2Plus',
     'license': 'LGPL-3',
-    'depends': ['account'],
+    'depends': ['account', 'product'],
     'data': [
         'views/dashboard_menu.xml',
         'views/res_partner_views.xml',
+        'views/product_views.xml',
         'report/sol_tax_invoice_report.xml',
     ],
     'installable': True,
