@@ -70,6 +70,10 @@
                 .title { font-size:19px; font-weight:bold; text-align:center; }
                 .rowlabel { font-size:11px; }
                 .amtnum { font-family:'DejaVu Sans','Arial',sans-serif; }
+                /* Multi-page: repeat the item-table column headers on each page
+                   and keep a line item from splitting across a page break. */
+                .inv thead { display: table-header-group; }
+                .inv tbody tr { page-break-inside: avoid; }
             </style>
 
             <table class="inv">
@@ -96,7 +100,7 @@
                 </tr>
                 <!-- ============ TITLE ============ -->
                 <tr>
-                    <td colspan="3" class="title nbt nbb">Tax Invoice</td>
+                    <td colspan="3" class="title nbt nbb" t-esc="o.sol_doc_title()"/>
                 </tr>
             </table>
 
@@ -194,6 +198,7 @@
                             <td class="c nbb"><t t-esc="sl"/><div class="ar sm" t-out="o.sol_ar_digits(sl)"/></td>
                             <td class="nbb">
                                 <span class="b" t-esc="line.name"/>
+                                <div t-if="o.sol_line_ar_name(line)" class="ar b" t-out="o.sol_line_ar_name(line)"/>
                             </td>
                             <td class="r nbb amtnum"><t t-esc="'%g' % line.quantity"/><div class="ar sm" t-out="o.sol_ar_digits('%g' % line.quantity)"/></td>
                             <td class="r nbb amtnum" t-out="o.sol_format_amount(line.price_unit)"/>
@@ -294,7 +299,7 @@
                 </tr>
             </table>
 
-            <div class="c" style="font-size:11px; margin-top:3px;">This is a Computer Generated Invoice</div>
+            <div class="c" style="font-size:11px; margin-top:3px;" t-esc="o.sol_doc_footer()"/>
         </div>
     </template>
 </odoo>
