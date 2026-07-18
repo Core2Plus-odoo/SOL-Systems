@@ -266,6 +266,23 @@ class AccountMove(models.Model):
             return partner.arabic_name
         return partner.name or ''
 
+    def sol_line_ar_name(self, line):
+        """Arabic product name for an invoice line (empty if none set)."""
+        product = line.product_id
+        return product.arabic_name if product and product.arabic_name else ''
+
+    def sol_doc_title(self):
+        """Document title: 'Credit Note' for refunds, else 'Tax Invoice'."""
+        if self.move_type in ('out_refund', 'in_refund'):
+            return 'Credit Note'
+        return 'Tax Invoice'
+
+    def sol_doc_footer(self):
+        """Footer line, wording differs for credit notes."""
+        if self.move_type in ('out_refund', 'in_refund'):
+            return 'This is a Computer Generated Document'
+        return 'This is a Computer Generated Invoice'
+
     def sol_ar_label(self, key):
         """Return Arabic label for common invoice terms."""
         labels = {
