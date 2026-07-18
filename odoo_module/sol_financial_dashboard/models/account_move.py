@@ -266,11 +266,6 @@ class AccountMove(models.Model):
             return partner.arabic_name
         return partner.name or ''
 
-    def sol_line_ar_name(self, line):
-        """Arabic product name for an invoice line (empty if none set)."""
-        product = line.product_id
-        return product.arabic_name if product and product.arabic_name else ''
-
     def sol_doc_title(self):
         """Document title: 'Credit Note' for refunds, else 'Tax Invoice'."""
         if self.move_type in ('out_refund', 'in_refund'):
