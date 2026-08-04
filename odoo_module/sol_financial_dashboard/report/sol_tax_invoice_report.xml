@@ -146,16 +146,16 @@
                                 <td>Delivery Note Date <span class="ar" style="float:right;">تاريخ مذكرة التسليم</span></td>
                             </tr>
                             <tr>
-                                <td>Supplier's Ref. <span class="ar" style="float:right;">مرجع المورد</span></td>
-                                <td>Other Reference(s) <span class="ar" style="float:right;">مرجع (مراجع) أخرى</span></td>
+                                <td>Supplier's Ref. <span class="ar" style="float:right;">مرجع المورد</span><div class="b" t-esc="o.sol_po_number()"/></td>
+                                <td>Other Reference(s) <span class="ar" style="float:right;">مرجع (مراجع) أخرى</span><div class="b" t-esc="o.sol_po_number()"/></td>
                             </tr>
                             <tr>
-                                <td>Buyer's Order No. <span class="ar" style="float:right;">رقم أمر الشراء للمشتري</span></td>
+                                <td>Buyer's Order No. <span class="ar" style="float:right;">رقم أمر الشراء للمشتري</span><div class="b" t-esc="o.sol_po_number()"/></td>
                                 <td>Dated <span class="ar" style="float:right;">بتاريخ</span></td>
                             </tr>
                             <tr>
                                 <td>Despatch Document No. <span class="ar" style="float:right;">رقم مستند الإرسال</span></td>
-                                <td>Mode/Terms of Payment <span class="ar" style="float:right;">طريقة / شروط السداد</span></td>
+                                <td>Mode/Terms of Payment <span class="ar" style="float:right;">طريقة / شروط السداد</span><div t-esc="o.invoice_payment_term_id.name or ''"/></td>
                             </tr>
                             <tr>
                                 <td>Despatched Through <span class="ar" style="float:right;">أرسلت من خلال</span></td>
@@ -276,8 +276,8 @@
                             <tr><td class="nb" style="width:35%;">A/c Holder's Name</td><td class="nb">: <t t-esc="company.name"/></td></tr>
                             <t t-set="bank" t-value="company.bank_ids[:1]"/>
                             <tr><td class="nb">Bank Name</td><td class="nb">: <t t-esc="bank.bank_id.name if bank else ''"/></td></tr>
-                            <tr><td class="nb">A/c No.</td><td class="nb">: <t t-esc="bank.acc_number if bank else ''"/></td></tr>
-                            <tr><td class="nb">IBAN</td><td class="nb">: <t t-esc="bank.acc_number if bank else ''"/></td></tr>
+                            <tr><td class="nb">A/c No.</td><td class="nb">: <t t-esc="o.sol_bank_acc_no() or (bank.acc_number if bank else '')"/></td></tr>
+                            <tr><td class="nb">IBAN</td><td class="nb">: <t t-esc="o.sol_bank_iban()"/></td></tr>
                             <tr><td class="nb">Branch &amp; SWIFT Code</td><td class="nb">: <t t-esc="(bank.bank_id.city or company.city) if bank else ''"/></td></tr>
                         </table>
                     </td>
