@@ -271,6 +271,37 @@ class AccountMove(models.Model):
         product = line.product_id
         return product.arabic_name if product and product.arabic_name else ''
 
+    def sol_po_number(self):
+        """Buyer's PO / order number.
+
+        Falls back through: the 'PO: <x>' fragment embedded in the reference,
+        then the customer reference (ref), then the source document.
+        """
+        self.ensure_one()
+        ref = self.ref or ''
+        if 'PO:' in ref:
+            return ref.split('PO:', 1)[1].split('|')[0].strip()
+        return self.invoice_origin or ''
+
+    @staticmethod
+    def _sol_looks_like_iban(number):
+        num = (number or '').replace(' ', '')
+        return len(num) > 15 and num[:2].isalpha()
+
+    def sol_bank_iban(self):
+        """Company bank account that looks like an IBAN (e.g. SA..)."""
+        for bank in self.company_id.bank_ids:
+            if self._sol_looks_like_iban(bank.acc_number):
+                return bank.acc_number
+        return ''
+
+    def sol_bank_acc_no(self):
+        """Company local account number (a bank account that is not an IBAN)."""
+        for bank in self.company_id.bank_ids:
+            if not self._sol_looks_like_iban(bank.acc_number):
+                return bank.acc_number
+        return ''
+
     def sol_doc_title(self):
         """Document title: 'Credit Note' for refunds, else 'Tax Invoice'."""
         if self.move_type in ('out_refund', 'in_refund'):
