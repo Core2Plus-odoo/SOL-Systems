@@ -288,13 +288,16 @@ class AccountMove(models.Model):
         return ''
 
     def sol_building_number(self, partner):
-        return self.sol_addr_part(partner, 'building_number', 'street_number')
+        return self.sol_addr_part(
+            partner, 'l10n_sa_edi_building_number', 'building_number', 'street_number')
 
     def sol_additional_number(self, partner):
-        return self.sol_addr_part(partner, 'additional_number', 'street_number2')
+        return self.sol_addr_part(
+            partner, 'l10n_sa_edi_plot_identification', 'additional_number', 'street_number2')
 
     def sol_district(self, partner):
-        return self.sol_addr_part(partner, 'district', 'neighborhood', 'city_id')
+        return self.sol_addr_part(
+            partner, 'l10n_sa_edi_neighborhood', 'district', 'neighborhood')
 
     def sol_po_number(self):
         """Buyer's PO / order number.
