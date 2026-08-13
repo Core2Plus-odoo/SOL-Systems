@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'SOL Financial Dashboard',
-    'version': '19.0.1.3.0',
+    'version': '19.0.1.4.0',
     'category': 'Accounting/Accounting',
     'summary': 'Live financial dashboard for SOL Systems (revenue, expenses, bank balances, vendor spend, data-quality flags)',
     'description': """
@@ -34,6 +34,12 @@ account.bank.statement.line.
         'views/product_views.xml',
         'report/sol_tax_invoice_report.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'sol_financial_dashboard/static/src/css/sol_hide_trial_banner.css',
+            'sol_financial_dashboard/static/src/js/sol_hide_trial_banner.js',
+        ],
+    },
     'installable': True,
     'application': False,
 }
