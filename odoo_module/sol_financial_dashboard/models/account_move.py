@@ -271,6 +271,31 @@ class AccountMove(models.Model):
         product = line.product_id
         return product.arabic_name if product and product.arabic_name else ''
 
+    def sol_addr_part(self, partner, *field_names):
+        """Return the first non-empty value among the given partner fields that
+        actually exist on the model.
+
+        The KSA structured-address fields have different names depending on
+        which module is installed (l10n_sa -> 'building_number', the
+        base_address_extended module -> 'street_number', etc.). Checking
+        ``partner._fields`` keeps the report safe if none of them are present.
+        """
+        if not partner:
+            return ''
+        for name in field_names:
+            if name in partner._fields and partner[name]:
+                return partner[name]
+        return ''
+
+    def sol_building_number(self, partner):
+        return self.sol_addr_part(partner, 'building_number', 'street_number')
+
+    def sol_additional_number(self, partner):
+        return self.sol_addr_part(partner, 'additional_number', 'street_number2')
+
+    def sol_district(self, partner):
+        return self.sol_addr_part(partner, 'district', 'neighborhood', 'city_id')
+
     def sol_po_number(self):
         """Buyer's PO / order number.
 

@@ -80,10 +80,14 @@
                 <!-- ============ HEADER: seller EN | logo | seller AR ============ -->
                 <tr>
                     <td style="width:40%;" class="en nbb">
+                        <t t-set="c_bno" t-value="o.sol_building_number(company.partner_id)"/>
+                        <t t-set="c_add" t-value="o.sol_additional_number(company.partner_id)"/>
                         <div class="b lg" t-esc="company.name"/>
+                        <div t-if="c_bno">Building No.: <t t-esc="c_bno"/></div>
                         <div t-esc="(company.street or '')"/>
                         <div t-if="company.street2" t-esc="company.street2"/>
                         <div><t t-esc="company.zip or ''"/><t t-if="company.city">, <t t-esc="company.city"/></t></div>
+                        <div t-if="c_add">Additional No.: <t t-esc="c_add"/></div>
                         <div t-esc="company.country_id.name or ''"/>
                         <div>VAT No. : <t t-esc="company.vat or ''"/></div>
                         <div>E-Mail : <t t-esc="company.email or ''"/></div>
@@ -111,11 +115,17 @@
                     <td style="width:50%;" class="nbt">
                         <table class="inv nb" style="font-size:11px;">
                             <tr><td class="nb" style="width:50%;">
+                                <t t-set="b_bno" t-value="o.sol_building_number(partner)"/>
+                                <t t-set="b_add" t-value="o.sol_additional_number(partner)"/>
+                                <t t-set="b_dist" t-value="o.sol_district(partner)"/>
                                 <div class="b">Buyer</div>
                                 <div class="b" t-esc="partner.name"/>
+                                <div t-if="b_bno">Building No.: <t t-esc="b_bno"/></div>
                                 <div t-esc="(partner.street or '')"/>
                                 <div t-if="partner.street2" t-esc="partner.street2"/>
+                                <div t-if="b_dist">District: <t t-esc="b_dist"/></div>
                                 <div><t t-esc="partner.zip or ''"/><t t-if="partner.city">, <t t-esc="partner.city"/></t></div>
+                                <div t-if="b_add">Additional No.: <t t-esc="b_add"/></div>
                                 <div t-esc="partner.country_id.name or ''"/>
                                 <div>Country&#160;&#160;&#160;&#160;&#160;&#160;: <t t-esc="partner.country_id.name or ''"/></div>
                                 <div>VAT No.&#160;&#160;&#160;&#160;: <t t-esc="partner.vat or ''"/></div>
