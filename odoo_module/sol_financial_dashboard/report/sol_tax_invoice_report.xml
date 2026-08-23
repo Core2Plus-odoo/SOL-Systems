@@ -246,35 +246,16 @@
                 </tbody>
             </table>
 
-            <!-- ============ AMOUNT IN WORDS + TAX SUMMARY ============ -->
+            <!-- ============ AMOUNT IN WORDS ============ -->
             <table class="inv nbt">
                 <tr>
-                    <td style="width:62%;" class="nbt">
+                    <td class="nbt">
                         <div><span class="b">Amount Chargeable (in words)</span> <span class="ar" style="float:right;">المبلغ المستحق (كتابة)</span></div>
                         <div class="b"><t t-out="o.sol_amount_in_words_en()"/> (<t t-out="SAR"/> <t t-out="o.sol_format_amount(o.amount_total)"/>)</div>
                         <div class="ar b" t-out="o.sol_amount_in_words_ar()"/>
                         <div style="border-top:0.75px solid #000; margin-top:3px; padding-top:3px;"><span class="b">VAT Amount in words</span> <span class="ar" style="float:right;">مبلغ ضريبة القيمة المضافة كتابة</span></div>
                         <div class="b"><t t-out="o.sol_vat_in_words_en()"/> (<t t-out="SAR"/> <t t-out="o.sol_format_amount(o.amount_tax)"/>)</div>
                         <div class="ar b" t-out="o.sol_vat_in_words_ar()"/>
-                    </td>
-                    <td style="width:38%; padding:0;" class="nbt">
-                        <table class="inv nb" style="width:100%; font-size:10px;">
-                            <tr class="c b">
-                                <td>VAT %<div class="ar sm">ضريبة %</div></td>
-                                <td>Taxable Amt<div class="ar sm">الخاضع للضريبة</div></td>
-                                <td>Tax Amt<div class="ar sm">مبلغ الضريبة</div></td>
-                            </tr>
-                            <tr class="r amtnum">
-                                <td class="c"><t t-esc="o.sol_vat_rate_label()"/></td>
-                                <td><t t-out="o.sol_format_amount(o.amount_untaxed)"/><div class="ar sm" t-out="o.sol_ar_num(o.amount_untaxed)"/></td>
-                                <td><t t-out="o.sol_format_amount(o.amount_tax)"/><div class="ar sm" t-out="o.sol_ar_num(o.amount_tax)"/></td>
-                            </tr>
-                            <tr class="r b amtnum">
-                                <td class="c">Total<div class="ar sm">المجموع</div></td>
-                                <td><t t-out="o.sol_format_amount(o.amount_untaxed)"/><div class="ar sm" t-out="o.sol_ar_num(o.amount_untaxed)"/></td>
-                                <td><t t-out="o.sol_format_amount(o.amount_tax)"/><div class="ar sm" t-out="o.sol_ar_num(o.amount_tax)"/></td>
-                            </tr>
-                        </table>
                     </td>
                 </tr>
             </table>
