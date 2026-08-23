@@ -207,8 +207,10 @@
                         <tr>
                             <td class="c nbb"><t t-esc="sl"/><div class="ar sm" t-out="o.sol_ar_digits(sl)"/></td>
                             <td class="nbb">
-                                <span class="b" t-esc="line.name"/>
+                                <span class="b" t-esc="line.product_id.name or line.name"/>
                                 <div t-if="o.sol_line_ar_name(line)" class="ar b" t-out="o.sol_line_ar_name(line)"/>
+                                <t t-set="ldesc" t-value="o.sol_line_description(line)"/>
+                                <div t-if="ldesc" style="font-style:italic; white-space:pre-line;" t-esc="ldesc"/>
                             </td>
                             <td class="r nbb amtnum"><t t-esc="'%g' % line.quantity"/><div class="ar sm" t-out="o.sol_ar_digits('%g' % line.quantity)"/></td>
                             <td class="r nbb amtnum" t-out="o.sol_format_amount(line.price_unit)"/>

@@ -271,6 +271,23 @@ class AccountMove(models.Model):
         product = line.product_id
         return product.arabic_name if product and product.arabic_name else ''
 
+    def sol_line_description(self, line):
+        """The line's free-text description, without the leading product name.
+
+        The product name (EN + AR) is printed separately, so this strips a
+        leading product-name prefix from line.name to avoid duplicating it and
+        returns whatever the user typed as the description (which may contain
+        an English line and an Arabic line). When the line has no product,
+        line.name is the title itself, so there is no separate description.
+        """
+        name = (line.name or '').strip()
+        pname = (line.product_id.name or '').strip()
+        if not pname:
+            return ''
+        if name.startswith(pname):
+            return name[len(pname):].lstrip(' -\n\t')
+        return name
+
     def sol_addr_part(self, partner, *field_names):
         """Return the first non-empty value among the given partner fields that
         actually exist on the model.
