@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'SOL Financial Dashboard',
-    'version': '19.0.1.7.0',
+    'version': '19.0.1.8.0',
     'category': 'Accounting/Accounting',
     'summary': 'Live financial dashboard for SOL Systems (revenue, expenses, bank balances, vendor spend, data-quality flags)',
     'description': """
