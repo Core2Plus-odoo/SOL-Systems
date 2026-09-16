@@ -1,9 +1,0 @@
-/* Cosmetic only: hide the Odoo.sh trial / database-expiration banner.
-   NOTE: this does not change the trial status — the database is still
-   unbacked and will be deleted per Odoo.sh unless the project is upgraded
-   to a paid plan. */
-.o_database_expiration_panel,
-.database_expiration_panel,
-.o_expiration_panel {
-    display: none !important;
-}
